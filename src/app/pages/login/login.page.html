@@ -1,0 +1,85 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title>login</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<form #form="ngForm">
+		<ion-grid>
+			<ion-row color="primary" class="ion-justify-content-center">
+				<ion-col
+					class="ion-align-self-center"
+					size-md="6"
+					size-lg="5"
+					size-xs="12"
+				>
+					<div class="ion-text-center">
+						<h3>Login</h3>
+					</div>
+					<div class="ion-padding">
+						<span
+							*ngIf="
+								form.touched &&
+								form.controls['email'].touched &&
+								form.controls['email'].invalid
+							"
+							class="text-danger"
+							>Debes de introducir tu email correctamente.
+						</span>
+						<ion-item>
+							<ion-input
+								name="email"
+								type="email"
+								placeholder="tu@email.com"
+								[(ngModel)]="usuario.email"
+								required
+								email
+							></ion-input>
+						</ion-item>
+						<hr />
+						<span
+							*ngIf="
+								form.touched &&
+								form.controls['password'].touched &&
+								form.controls['password'].invalid
+							"
+							class="text-danger"
+							>La contraseña debe de ser más de 5 letras.
+						</span>
+						<ion-item>
+							<ion-input
+								name="password"
+								type="password"
+								placeholder="Password"
+								[(ngModel)]="usuario.pass"
+								required
+								minlength="6"
+							></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-checkbox
+								slot="start"
+								[(ngModel)]="recordar"
+								name="recordar"
+							></ion-checkbox>
+							<ion-label>Recordar email?</ion-label>
+						</ion-item>
+					</div>
+					<div class="ion-padding ion-text-center">
+						<ion-button
+							color="primary"
+							expand="block"
+							size="large"
+							(click)="login(form)"
+							>Login</ion-button
+						>
+					</div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</form>
+</ion-content>
