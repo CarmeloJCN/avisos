@@ -9,15 +9,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
-    canActivate: [AuthGuard]
+    path: 'avisos',
+    loadChildren: () => import('./pages/avisos/avisos.module').then(m => m.AvisosPageModule),
   },
-  {
-    path: 'list',
-    loadChildren: () => import('./pages/list/list.module').then(m => m.ListPageModule)
-  },
-  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'clientes', loadChildren: './pages/clientes/clientes.module#ClientesPageModule' },
 ];
 
 @NgModule({

@@ -1,9 +1,9 @@
+import { NgForm } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { UsuarioModel } from './../../models/usuario.model';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -20,7 +20,8 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -40,12 +41,16 @@ export class LoginPage implements OnInit {
       this.loading.dismiss();
       if (this.recordar) {
         localStorage.setItem('email', this.usuario.email);
+      } else {
+        localStorage.removeItem('email');
       }
-      this.router.navigateByUrl('/home');
-      console.log(resp);
+      this.router.navigateByUrl('/avisos');
 
     }, (err) => {
-      console.log(err);
+      this.loading.dismiss().then(
+        this.presentAlert(err)
+      );
+
 
     });
 
@@ -56,6 +61,34 @@ export class LoginPage implements OnInit {
       message: 'Por favor, espere...',
     });
     await this.loading.present();
+  }
+
+  async presentAlert(err) {
+    let msg: string;
+    switch (err.error.error.message) {
+      case ('INVALID_PASSWORD'):
+        msg = 'Contraseña incorrecta.';
+        break;
+      case ('EMAIL_NOT_FOUND'):
+        msg = 'Usuario no encontrado.';
+        break;
+      default:
+        if (err.error.error.message.match(/TOO_MANY_ATTEMPTS_TRY_LATER/gi)) {
+          msg = 'Demasiados intentos, intentelo de nuevo más tarde';
+        } else {
+          msg = 'Ha ocurrido un problema.';
+        }
+        break;
+
+    }
+    const alert = await this.alertController.create({
+      header: 'Error',
+      animated: true,
+      backdropDismiss: false,
+      message: msg,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
 }

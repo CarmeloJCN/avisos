@@ -1,6 +1,7 @@
+import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -12,13 +13,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
-      url: '/home',
+      title: 'Avisos',
+      url: '/avisos',
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
+      title: 'clientes',
+      url: '/clientes',
       icon: 'list'
     }
   ];
@@ -26,7 +27,9 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    public auth: AuthService,
+    private menu: MenuController
   ) {
     this.initializeApp();
   }
@@ -36,5 +39,10 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  logOut() {
+    this.auth.logOut();
+    this.menu.close();
   }
 }

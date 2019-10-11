@@ -2,6 +2,7 @@ import { UsuarioModel } from './../models/usuario.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -13,12 +14,17 @@ export class AuthService {
   private apiKey = 'AIzaSyA1tEN8jUT7Ol5TZMdbxBvmPdGo_CQXHBc';
   userToken: string;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private nav: Router
+    ) {
     this.leerToken();
   }
 
   logOut() {
+    this.userToken = '';
     localStorage.removeItem('token');
+    this.nav.navigateByUrl('login');
 
   }
 
@@ -33,7 +39,7 @@ export class AuthService {
       authData
     ).pipe(
       map((resp: any) => {
-        this.guardarToken(resp.idToken);
+        this.guardarToken(resp);
         return resp;
       })
     );
