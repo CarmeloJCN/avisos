@@ -9,56 +9,64 @@
 
 <ion-content>
 	<form #form="ngForm">
-		<ion-list lines="full" class="ion-no-margin ion-no-padding">
-			<div class="ion-text-center">
-				<h3>Login</h3>
-			</div>
-			<div class="ion-padding">
-				<span *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('pattern')" class="text-danger"
-					>Debes de introducir tu email correctamente.
-				</span>
-				<span *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('required')" class="text-danger"
-					>Campo obligatorio.
-				</span>
-				<ion-item>
-					<ion-input
-						name="email"
-						type="email"
-						placeholder="tu@email.com"
-            [(ngModel)]="usuario.email"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-						required
-					></ion-input>
-				</ion-item>
-				<hr />
-				<span
-					*ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('minlength')"
-					class="text-danger"
-					>La contraseña debe de ser más de 5 letras.
-				</span>
-				<span
-					*ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('required')"
-					class="text-danger"
-					>Campo obligatorio.
-				</span>
-				<ion-item>
-					<ion-input
-						name="password"
-						type="password"
-						placeholder="Password"
-						[(ngModel)]="usuario.password"
-						required
-						minlength="6"
-					></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-checkbox slot="start" [(ngModel)]="recordar" name="recordar"></ion-checkbox>
-					<ion-label>Recordar email?</ion-label>
-				</ion-item>
-			</div>
-			<div class="ion-padding ion-text-center">
-				<ion-button color="primary" expand="block" class="ion-no-margin" (click)="login(form)">Login</ion-button>
-			</div>
-		</ion-list>
+		<ion-grid fixed>
+			<ion-row color="primary" class="ion-justify-content-center">
+				<ion-list lines="full" class="ion-no-margin ion-no-padding">
+					<div class="ion-text-center">
+						<h3>Login</h3>
+					</div>
+					<div class="ion-padding">
+						<span
+							*ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('pattern')"
+							class="text-danger"
+							>Debes de introducir tu email correctamente.
+						</span>
+						<span
+							*ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('required')"
+							class="text-danger"
+							>Campo obligatorio.
+						</span>
+						<ion-item>
+							<ion-input
+								name="email"
+								type="email"
+								placeholder="tu@email.com"
+								[(ngModel)]="usuario.email"
+								pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+								required
+							></ion-input>
+						</ion-item>
+						<hr />
+						<span
+							*ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('minlength')"
+							class="text-danger"
+							>La contraseña debe de ser más de 5 letras.
+						</span>
+						<span
+							*ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('required')"
+							class="text-danger"
+							>Campo obligatorio.
+						</span>
+						<ion-item>
+							<ion-input
+								name="password"
+								type="password"
+								placeholder="Password"
+								[(ngModel)]="usuario.password"
+								required
+								minlength="6"
+							></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-checkbox slot="start" [(ngModel)]="recordar" name="recordar"></ion-checkbox>
+							<ion-label>Recordar email?</ion-label>
+						</ion-item>
+					</div>
+					<div class="ion-padding ion-text-center">
+						<ion-button color="primary" expand="block" class="ion-no-margin" (click)="login(form)">Login</ion-button>
+					</div>
+				</ion-list>
+			</ion-row>
+		</ion-grid>
 	</form>
 </ion-content>

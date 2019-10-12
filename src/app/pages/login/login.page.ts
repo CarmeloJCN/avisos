@@ -2,8 +2,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { UsuarioModel } from './../../models/usuario.model';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -19,7 +18,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
+    private router: NavController,
     public loadingController: LoadingController,
     public alertController: AlertController
   ) { }
@@ -37,21 +36,19 @@ export class LoginPage implements OnInit {
       return;
     }
     this.presentLoading();
-    this.authService.login(this.usuario).subscribe(resp => {
+    this.authService.login(this.usuario).then(resp => {
       this.loading.dismiss();
       if (this.recordar) {
         localStorage.setItem('email', this.usuario.email);
       } else {
         localStorage.removeItem('email');
       }
-      this.router.navigateByUrl('/avisos');
+      this.router.navigateForward('/avisos');
 
-    }, (err) => {
+    }).catch(err => {
       this.loading.dismiss().then(
         this.presentAlert(err)
       );
-
-
     });
 
   }
@@ -65,19 +62,18 @@ export class LoginPage implements OnInit {
 
   async presentAlert(err) {
     let msg: string;
-    switch (err.error.error.message) {
-      case ('INVALID_PASSWORD'):
+    switch (err.code) {
+      case ('auth/wrong-password'):
         msg = 'Contraseña incorrecta.';
         break;
-      case ('EMAIL_NOT_FOUND'):
+      case ('auth/user-not-found'):
         msg = 'Usuario no encontrado.';
         break;
+      case ('auth/too-many-requests'):
+        msg = 'Demasiados intentos, intentelo de nuevo más tarde';
+        break;
       default:
-        if (err.error.error.message.match(/TOO_MANY_ATTEMPTS_TRY_LATER/gi)) {
-          msg = 'Demasiados intentos, intentelo de nuevo más tarde';
-        } else {
-          msg = 'Ha ocurrido un problema.';
-        }
+        msg = 'Ha ocurrido un problema.';
         break;
 
     }

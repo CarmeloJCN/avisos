@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../guards/auth.guard';
 import { ClientesComponent } from './clientes.component';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -16,7 +17,8 @@ import { CommonModule } from '@angular/common';
     RouterModule.forChild([
       {
         path: '',
-        component: ClientesComponent
+        component: ClientesComponent,
+        canActivate: [AuthGuard]
       }
     ])
   ]

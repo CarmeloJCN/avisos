@@ -20,7 +20,7 @@ export class AppComponent {
     {
       title: 'clientes',
       url: '/clientes',
-      icon: 'list'
+      icon: 'contacts'
     }
   ];
 

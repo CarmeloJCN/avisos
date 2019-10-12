@@ -1,8 +1,8 @@
+import { NavController } from '@ionic/angular';
 import { UsuarioModel } from './../models/usuario.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from 'firebase';
 
 
 @Injectable({
@@ -10,92 +10,39 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private url = 'https://identitytoolkit.googleapis.com/v1/accounts';
-  private apiKey = 'AIzaSyA1tEN8jUT7Ol5TZMdbxBvmPdGo_CQXHBc';
-  userToken: string;
+  user: User;
 
   constructor(
-    private http: HttpClient,
-    private nav: Router
-    ) {
-    this.leerToken();
+    public afAuth: AngularFireAuth, public nav: NavController
+  ) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.user = user;
+        localStorage.setItem('user', JSON.stringify(this.user));
+      } else {
+        localStorage.setItem('user', null);
+      }
+    });
   }
 
-  logOut() {
-    this.userToken = '';
-    localStorage.removeItem('token');
-    this.nav.navigateByUrl('login');
-
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user !== null;
   }
 
-  login(usuario: UsuarioModel) {
-    const authData = {
-      ...usuario,
-      returnSecureToken: true
-    };
-
-    return this.http.post(
-      `${this.url}:signInWithPassword?key=${this.apiKey}`,
-      authData
-    ).pipe(
-      map((resp: any) => {
-        this.guardarToken(resp);
-        return resp;
-      })
-    );
-  }
-
-
-  nuevoUsuario(usuario: UsuarioModel) {
-
-    const authData = {
-      ...usuario,
-      returnSecureToken: true
-    };
-
-    return this.http.post(
-      `${this.url}:signUp?key=${this.apiKey}`,
-      authData
-    ).pipe(
-      map((resp: any) => {
-        this.guardarToken(resp);
-        return resp;
-      })
-    );
-  }
-
-  private guardarToken(resp: any) {
-    this.userToken = resp.idToken;
-    localStorage.setItem('token', resp.idToken);
-    localStorage.setItem('expiresIn', resp.expiresIn);
-    const hoy = new Date();
-    hoy.setSeconds(Number(localStorage.getItem('expiresIn')));
-    localStorage.setItem('expira', hoy.getTime().toString());
+  async logOut() {
+    await this.afAuth.auth.signOut();
+    localStorage.removeItem('user');
+    this.nav.navigateForward(['/login']);
 
   }
-
-  leerToken() {
-    if (localStorage.getItem('token')) {
-      this.userToken = localStorage.getItem('token');
-    } else {
-      this.userToken = '';
-    }
-
-    return this.userToken;
+  async login(usuario: UsuarioModel) {
+    const result = await this.afAuth.auth.signInWithEmailAndPassword(usuario.email, usuario.password);
+    this.nav.navigateForward(['/avisos']);
   }
 
-  autentificado(): boolean {
-
-    if (this.userToken.length < 2) {
-      return false;
-    }
-    const expira = Number(localStorage.getItem('expira'));
-    const expiraDate = new Date();
-    expiraDate.setTime(expira);
-
-    if (expiraDate > new Date()) {
-      return true;
-    }
-    return false;
+  async sendPasswordResetEmail(passwordResetEmail: string) {
+    return await this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail);
   }
+
 }
