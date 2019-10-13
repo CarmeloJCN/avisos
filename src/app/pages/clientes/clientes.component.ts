@@ -1,5 +1,10 @@
+import { ClienteModel } from './../../models/cliente.model';
+import { NavController } from '@ionic/angular';
+import { AuthService } from './../../services/auth.service';
 import { FirebaseService } from './../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-clientes',
@@ -8,43 +13,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientesComponent implements OnInit {
 
-  clientes: any;
-  studentName;
-  studentAge;
-  studentAddress;
+  clientes$: Observable<ClienteModel[]>;
 
   constructor(
-    private fb: FirebaseService
+    private fb: FirebaseService,
+    private auth: AuthService,
+    private nav: NavController
   ) { }
 
   ngOnInit() {
-    this.fb.readClients().subscribe(data => {
-      this.clientes = data.map(c => {
-        return {
-          id: c.payload.doc.id,
-          isEdit: false,
-          Name: c.payload.doc.data()['Name'],
-          Age: c.payload.doc.data()['Age'],
-          Address: c.payload.doc.data()['Address'],
-        };
-      });
-    });
+
+    this.clientes$ = this.fb.readClients().pipe((takeUntil(this.auth.unsubscribe$)));
+
   }
 
-  CreateRecord() {
-    const record = {};
-    record['Name'] = this.studentName;
-    record['Age'] = this.studentAge;
-    record['Address'] = this.studentAddress;
-    this.fb.createClient(record).then(resp => {
-      this.studentName = '';
-      this.studentAge = undefined;
-      this.studentAddress = '';
-      console.log(resp);
-    })
-      .catch(error => {
-        console.log(error);
-      });
+  addCliente() {
+    this.nav.navigateForward('/cliente');
+  }
+
+  deleteCliente(id: string) {
+    this.fb.deleteClient(id);
   }
 
 }

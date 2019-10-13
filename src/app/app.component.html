@@ -1,28 +1,28 @@
 <ion-app>
-	<ion-split-pane>
-		<ion-menu type="overlay" color="primary" *ngIf="auth.isLoggedIn">
-			<ion-header>
-				<ion-toolbar color="primary">
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay" color="primary" *ngIf="auth.isLoggedIn">
+      <ion-header>
+        <ion-toolbar color="primary">
           <ion-title class="ion-text-left">Menu</ion-title>
           <ion-button slot="end" size="small" (click)="logOut()" *ngIf="auth.isLoggedIn">
             <ion-icon slot="start" name="exit"></ion-icon>
             <ion-label>Desconectar</ion-label>
           </ion-button>
-				</ion-toolbar>
-			</ion-header>
-			<ion-content>
-				<ion-list>
-					<ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-						<ion-item [routerDirection]="'root'" [routerLink]="[p.url]" *ngIf="auth.isLoggedIn">
-							<ion-icon slot="start" [name]="p.icon"></ion-icon>
-							<ion-label>
-								{{ p.title }}
-							</ion-label>
-						</ion-item>
-					</ion-menu-toggle>
-				</ion-list>
-			</ion-content>
-		</ion-menu>
-		<ion-router-outlet main></ion-router-outlet>
-	</ion-split-pane>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" *ngIf="auth.isLoggedIn">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{ p.title }}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>

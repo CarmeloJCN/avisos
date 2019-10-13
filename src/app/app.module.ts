@@ -2,7 +2,6 @@ import {  AngularFireAuthModule } from '@angular/fire/auth';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -26,7 +25,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     IonicModule.forRoot(),
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

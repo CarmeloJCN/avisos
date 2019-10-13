@@ -1,0 +1,47 @@
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="clienteForm">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <div class="ion-text-center">
+        <h3>Información del cliente</h3>
+      </div>
+      <div class="ion-padding">
+        <ion-item>
+          <ion-input formControlName="nombre" type="text" placeholder="Nombre" required minlength="3"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="apellidos" type="text" placeholder="Apellidos" required minlength="6"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="direccion" type="text" placeholder="Dirección" required minlength="6"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="cifNif" type="text" placeholder="CIF/NIF" required minlength="6"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input formControlName="email" type="text" placeholder="Email" required minlength="6"></ion-input>
+        </ion-item>
+        <div formArrayName="telefono">
+          <ion-item *ngFor="let item of telefonos.controls; index as i">
+            <ion-input [formControlName]="i" type="text" placeholder="Teléfono" required minlength="6"></ion-input>
+            <ion-button (click)="addPhone()" *ngIf="i + 1 === telefonos.controls.length && i < 2">
+              <ion-icon class="ion-text-center" name="add"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+      </div>
+      <div class="ion-justify-content-evenly" style="display: flex">
+        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="cancelar()">Cancelar</ion-button>
+        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="aceptar()">Aceptar</ion-button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

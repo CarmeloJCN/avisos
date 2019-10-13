@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { UsuarioModel } from './../models/usuario.model';
 import { Injectable } from '@angular/core';
@@ -11,6 +12,7 @@ import { User } from 'firebase';
 export class AuthService {
 
   user: User;
+  unsubscribe$: Subject<void> = new Subject();
 
   constructor(
     public afAuth: AngularFireAuth, public nav: NavController
@@ -30,12 +32,18 @@ export class AuthService {
     return user !== null;
   }
 
-  async logOut() {
-    await this.afAuth.auth.signOut();
-    localStorage.removeItem('user');
+  logOut() {
     this.nav.navigateForward(['/login']);
-
+    this.unsuscribe();
+    this.afAuth.auth.signOut();
+    localStorage.removeItem('user');
   }
+
+  unsuscribe() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   async login(usuario: UsuarioModel) {
     const result = await this.afAuth.auth.signInWithEmailAndPassword(usuario.email, usuario.password);
     this.nav.navigateForward(['/avisos']);

@@ -1,18 +1,16 @@
-import { LoginGuard } from './../../guards/login.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPage } from './login.page';
+import { ClientePage } from './cliente.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPage,
-    canActivate: [LoginGuard]
+    component: ClientePage
   }
 ];
 
@@ -22,7 +20,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
+    ReactiveFormsModule
   ],
-  declarations: [LoginPage]
+  declarations: [ClientePage]
 })
-export class LoginPageModule {}
+export class ClientePageModule { }
