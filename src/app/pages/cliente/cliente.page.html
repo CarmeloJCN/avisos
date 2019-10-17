@@ -32,7 +32,7 @@
         <div formArrayName="telefono">
           <ion-item *ngFor="let item of telefonos.controls; index as i">
             <ion-input [formControlName]="i" type="text" placeholder="Teléfono" required minlength="6"></ion-input>
-            <ion-button (click)="addPhone()" *ngIf="i + 1 === telefonos.controls.length && i < 2">
+            <ion-button (click)="addTelefono()" *ngIf="i + 1 === telefonos.controls.length && i < 2">
               <ion-icon class="ion-text-center" name="add"></ion-icon>
             </ion-button>
           </ion-item>

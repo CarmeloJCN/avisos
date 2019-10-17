@@ -1,3 +1,4 @@
+import { NameFilterPipe } from './../../pipes/name-filter.pipe';
 import { AuthGuard } from './../../guards/auth.guard';
 import { ClientesComponent } from './clientes.component';
 import { RouterModule } from '@angular/router';
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [ClientesComponent],
+  declarations: [ClientesComponent, NameFilterPipe],
   imports: [
     CommonModule,
     FormsModule,

@@ -1,6 +1,8 @@
 import { ClienteModel } from './../models/cliente.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -8,16 +10,20 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class FirebaseService {
 
+
   constructor(
     private firestore: AngularFirestore
   ) { }
 
   createClient(cliente: ClienteModel) {
+
+
     return this.firestore.collection('clientes').add(cliente);
   }
 
   readClients() {
-    return this.firestore.collection<ClienteModel>('clientes').valueChanges();
+    return this.firestore.collection('clientes').snapshotChanges();
+
   }
 
   updateClient(clienteID: string, cliente: ClienteModel) {

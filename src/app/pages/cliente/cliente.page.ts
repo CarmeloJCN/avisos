@@ -36,7 +36,7 @@ export class ClientePage implements OnInit {
     return this.clienteForm.get('telefono') as FormArray;
   }
 
-  addPhone() {
+  addTelefono() {
     this.telefonos.push(new FormControl(''));
   }
 
