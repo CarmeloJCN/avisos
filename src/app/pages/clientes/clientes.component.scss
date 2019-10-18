@@ -1,0 +1,31 @@
+:host {
+  .datos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+
+  .header {
+    font-weight: bold;
+    margin-left: 18px;
+  }
+
+  .title {
+    color: #3880ff;
+    font-weight: bold;
+  }
+
+  .dato {
+    font-size: 14px;
+  }
+  ion-row {
+    min-width: 415px;
+  }
+
+  ion-item {
+    ion-row {
+      min-width: 415px;
+      min-height: 60px;
+    }
+  }
+}

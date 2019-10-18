@@ -19,7 +19,7 @@ const routes: Routes = [
     path: 'clientes',
     loadChildren: './pages/clientes/clientes.module#ClientesPageModule',
   },
-  { path: 'cliente', loadChildren: './pages/cliente/cliente.module#ClientePageModule' }
+  { path: 'cliente/:id', loadChildren: './pages/cliente/cliente.module#ClientePageModule' }
 ];
 
 @NgModule({

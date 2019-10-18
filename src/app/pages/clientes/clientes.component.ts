@@ -3,8 +3,7 @@ import { NavController } from '@ionic/angular';
 import { AuthService } from './../../services/auth.service';
 import { FirebaseService } from './../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
-import { takeUntil, filter, map } from 'rxjs/operators';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-clientes',
@@ -30,7 +29,6 @@ export class ClientesComponent implements OnInit {
           return {
             id: c.payload.doc.id,
             nombre: c.payload.doc.data().nombre,
-            apellidos: c.payload.doc.data().apellidos,
             direccion: c.payload.doc.data().direccion,
             cifNif: c.payload.doc.data().cifNif,
             telefono: c.payload.doc.data().telefono,
@@ -40,8 +38,12 @@ export class ClientesComponent implements OnInit {
       });
   }
 
+  goClient(id: string) {
+    this.nav.navigateForward(`/cliente/${id}`);
+  }
+
   addCliente() {
-    this.nav.navigateForward('/cliente');
+    this.nav.navigateForward('/cliente/new');
   }
 
   deleteCliente(id: string) {
