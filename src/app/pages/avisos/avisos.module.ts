@@ -1,4 +1,3 @@
-import { AuthGuard } from './../../guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,8 +10,7 @@ import { AvisosPage } from './avisos.page';
 const routes: Routes = [
   {
     path: '',
-    component: AvisosPage,
-    canActivate: [AuthGuard]
+    component: AvisosPage
   }
 ];
 
@@ -25,4 +23,4 @@ const routes: Routes = [
   ],
   declarations: [AvisosPage]
 })
-export class AvisosPageModule {}
+export class AvisosPageModule { }

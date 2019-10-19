@@ -1,13 +1,17 @@
 import { NameFilterPipe } from './../../pipes/name-filter.pipe';
-import { AuthGuard } from './../../guards/auth.guard';
 import { ClientesComponent } from './clientes.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
+const routes: Routes = [
+  {
+    path: '',
+    component: ClientesComponent
+  }
+];
 
 @NgModule({
   declarations: [ClientesComponent, NameFilterPipe],
@@ -15,13 +19,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: ClientesComponent,
-        canActivate: [AuthGuard]
-      }
-    ])
+    RouterModule.forChild(routes)
   ]
 })
 export class ClientesPageModule { }

@@ -1,7 +1,7 @@
 import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 
-import { Platform, MenuController } from '@ionic/angular';
+import { Platform, MenuController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -29,7 +29,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public auth: AuthService,
-    private menu: MenuController
+    private menu: MenuController,
+    private nav: NavController
   ) {
     this.initializeApp();
   }
@@ -42,6 +43,7 @@ export class AppComponent {
   }
 
   logOut() {
+    this.nav.navigateBack('/login');
     this.auth.logOut();
     this.menu.close();
   }

@@ -1,3 +1,5 @@
+import { LoginGuard } from './guards/login.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -10,16 +12,23 @@ const routes: Routes = [
   {
     path: 'avisos',
     loadChildren: () => import('./pages/avisos/avisos.module').then(m => m.AvisosPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
-    loadChildren: './pages/login/login.module#LoginPageModule'
+    loadChildren: './pages/login/login.module#LoginPageModule',
+    canActivate: [LoginGuard]
   },
   {
     path: 'clientes',
     loadChildren: './pages/clientes/clientes.module#ClientesPageModule',
+    canActivate: [AuthGuard]
   },
-  { path: 'cliente/:id', loadChildren: './pages/cliente/cliente.module#ClientePageModule' }
+  {
+    path: 'cliente/:id',
+    loadChildren: './pages/cliente/cliente.module#ClientePageModule',
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

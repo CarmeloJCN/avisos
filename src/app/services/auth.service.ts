@@ -33,7 +33,6 @@ export class AuthService {
   }
 
   logOut() {
-    this.nav.navigateForward(['/login']);
     this.unsuscribe();
     this.afAuth.auth.signOut();
     localStorage.removeItem('user');
@@ -46,7 +45,6 @@ export class AuthService {
 
   async login(usuario: UsuarioModel) {
     const result = await this.afAuth.auth.signInWithEmailAndPassword(usuario.email, usuario.password);
-    this.nav.navigateForward(['/avisos']);
   }
 
   async sendPasswordResetEmail(passwordResetEmail: string) {

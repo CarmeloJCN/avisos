@@ -1,5 +1,5 @@
 import { ClienteModel } from './../../models/cliente.model';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from './../../services/auth.service';
 import { FirebaseService } from './../../services/firebase.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,11 +15,13 @@ export class ClientesComponent implements OnInit {
   clientes: Array<ClienteModel>;
   filteredClients: Array<ClienteModel>;
   nameFilter: string;
+  clientID: string;
 
   constructor(
     private fb: FirebaseService,
     private auth: AuthService,
-    private nav: NavController
+    private nav: NavController,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -47,12 +49,35 @@ export class ClientesComponent implements OnInit {
   }
 
   deleteCliente(id: string) {
-    this.fb.deleteClient(id);
+    this.clientID = id;
+    this.presentAlert();
   }
 
   onSearchChange(event) {
     this.nameFilter = event.detail.value;
 
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Completado',
+      animated: true,
+      backdropDismiss: false,
+      message: '¿Estás seguro de que quieres borrar este elemento?',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel'
+        },
+        {
+          text: 'SI',
+          handler: data => {
+            this.fb.deleteClient(this.clientID);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

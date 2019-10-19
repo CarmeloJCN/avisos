@@ -2,7 +2,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { UsuarioModel } from './../../models/usuario.model';
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, AlertController, NavController } from '@ionic/angular';
+import { LoadingController, AlertController, NavController, MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -20,7 +20,8 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private router: NavController,
     public loadingController: LoadingController,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private menu: MenuController
   ) { }
 
   ngOnInit() {
@@ -56,6 +57,7 @@ export class LoginPage implements OnInit {
   async presentLoading() {
     this.loading = await this.loadingController.create({
       message: 'Por favor, espere...',
+      duration: 2000
     });
     await this.loading.present();
   }
@@ -85,6 +87,14 @@ export class LoginPage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  ionViewDidEnter() {
+    this.menu.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menu.enable(true);
   }
 
 }
