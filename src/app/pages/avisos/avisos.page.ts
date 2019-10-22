@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AvisosPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private nav: NavController
+  ) { }
 
   ngOnInit() {
+  }
+
+
+
+  addAviso() {
+    this.nav.navigateForward('/add-aviso/new');
   }
 
 }

@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ClientePage implements OnInit {
 
   clienteForm: FormGroup;
-  clienteID: string;
+  clienteID = '';
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +26,7 @@ export class ClientePage implements OnInit {
     this.clienteForm = this.fb.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
-      cifNif: ['', Validators.pattern('([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])')],
+      cifNif: ['', [Validators.pattern('([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])'), this.validarCif]],
       telefono: this.fb.array([
         this.fb.control('', Validators.required)
       ]),
@@ -35,7 +35,7 @@ export class ClientePage implements OnInit {
     this.router.params.subscribe(data => {
       if (data.id === 'new') { return; }
       this.clienteID = data.id;
-      this.fbase.readClient(data.id).subscribe(dato => {
+      this.fbase.leerCliente(data.id).subscribe(dato => {
         this.clienteForm.patchValue(
           dato.data()
         );
@@ -56,16 +56,25 @@ export class ClientePage implements OnInit {
     this.telefonos.removeAt(index);
   }
 
+  getTelefonoLabel(index: number) {
+    return `Teléfono ${index + 1}`;
+  }
+
+  validarCif(control: FormControl): { [s: string]: boolean } {
+    if (control.value.length > 9) {
+      control.setValue(control.value.slice(0, 9));
+    }
+    return null;
+  }
+
   aceptar() {
     if (this.clienteForm.invalid) { return; }
-    console.log(this.clienteForm.value);
-
-    if (this.clienteForm.value.id === '') {
-      this.fbase.createClient(this.clienteForm.value).then(() => {
+    if (this.clienteID === '') {
+      this.fbase.addCliente(this.clienteForm.value).then(() => {
         this.presentAlert('Cliente añadido correctamente.');
       });
     } else {
-      this.fbase.updateClient(this.clienteID, this.clienteForm.value).then(() => {
+      this.fbase.actualizarCliente(this.clienteID, this.clienteForm.value).then(() => {
         this.presentAlert('Cliente actualizado correctamente.');
       });
     }

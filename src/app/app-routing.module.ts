@@ -28,7 +28,8 @@ const routes: Routes = [
     path: 'cliente/:id',
     loadChildren: './pages/cliente/cliente.module#ClientePageModule',
     canActivate: [AuthGuard]
-  }
+  },
+  { path: 'add-aviso/:id', loadChildren: './pages/avisos/add-aviso/add-aviso.module#AddAvisoPageModule' }
 ];
 
 @NgModule({

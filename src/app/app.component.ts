@@ -1,3 +1,4 @@
+import { DatosService } from './services/datos.service';
 import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 
@@ -30,7 +31,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     public auth: AuthService,
     private menu: MenuController,
-    private nav: NavController
+    private nav: NavController,
+    private datos: DatosService
   ) {
     this.initializeApp();
   }
@@ -39,6 +41,9 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.auth.userUID$.subscribe(user => {
+        this.datos.getUsuarioID();
+      });
     });
   }
 

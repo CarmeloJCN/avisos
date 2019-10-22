@@ -1,6 +1,8 @@
 import { ClienteModel } from './../models/cliente.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { tap, take } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 @Injectable({
@@ -13,24 +15,29 @@ export class FirebaseService {
     private firestore: AngularFirestore
   ) { }
 
-  createClient(cliente: ClienteModel) {
+  addCliente(cliente: ClienteModel) {
     return this.firestore.collection('clientes').add(cliente);
   }
 
-  readClients() {
+  leerClientes() {
     return this.firestore.collection('clientes').snapshotChanges();
   }
 
-  readClient(clienteID: string) {
+  leerCliente(clienteID: string) {
     return this.firestore.doc('clientes/' + clienteID).get();
   }
 
-  updateClient(clienteID: string, cliente: ClienteModel) {
+  actualizarCliente(clienteID: string, cliente: ClienteModel) {
     return this.firestore.doc('clientes/' + clienteID).update(cliente);
   }
 
-  deleteClient(clienteID: string) {
+  borrarCliente(clienteID: string) {
     this.firestore.doc('clientes/' + clienteID).delete();
+  }
+
+  leerTecnico(usuarioUID: string) {
+    return this.firestore.collection('usuarios', ref => ref.where('uid', '==', usuarioUID))
+      .snapshotChanges().pipe(take(1));
   }
 
 }

@@ -21,7 +21,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot({ swipeBackEnabled: false }),
+    IonicModule.forRoot(),
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),

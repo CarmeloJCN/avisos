@@ -15,20 +15,25 @@
       </div>
       <div class="ion-padding">
         <ion-item>
-          <ion-input formControlName="nombre" type="text" placeholder="Nombre"></ion-input>
+          <ion-label>Nombre</ion-label>
+          <ion-input formControlName="nombre" type="name"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="direccion" type="text" placeholder="Dirección"></ion-input>
+          <ion-label>Dirección</ion-label>
+          <ion-input formControlName="direccion" type="text"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="cifNif" type="text" placeholder="CIF/NIF"></ion-input>
+          <ion-label>CIF/NIF</ion-label>
+          <ion-input formControlName="cifNif" type="text" placeholder="12345678X"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+          <ion-label>Email</ion-label>
+          <ion-input formControlName="email" type="text" placeholder="your@email.com"></ion-input>
         </ion-item>
         <div formArrayName="telefono">
           <ion-item *ngFor="let item of telefonos.controls; index as i">
-            <ion-input [formControlName]="i" type="text" placeholder="Teléfono"></ion-input>
+            <ion-label>{{ getTelefonoLabel(i) }}</ion-label>
+            <ion-input [formControlName]="i" type="text"></ion-input>
             <ion-button (click)="removeTelefono(i)" *ngIf="i > 0" color="danger">
               <ion-icon class="ion-text-center" name="remove"></ion-icon>
             </ion-button>
