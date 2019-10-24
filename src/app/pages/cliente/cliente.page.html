@@ -16,11 +16,11 @@
       <div class="ion-padding">
         <ion-item>
           <ion-label>Nombre</ion-label>
-          <ion-input formControlName="nombre" type="name"></ion-input>
+          <ion-input autocapitalization=words formControlName="nombre" type="name"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Dirección</ion-label>
-          <ion-input formControlName="direccion" type="text"></ion-input>
+          <ion-input formControlName="direccion" type="text" autocomplete="address"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>CIF/NIF</ion-label>
@@ -37,7 +37,7 @@
             <ion-button (click)="removeTelefono(i)" *ngIf="i > 0" color="danger">
               <ion-icon class="ion-text-center" name="remove"></ion-icon>
             </ion-button>
-            <ion-button (click)="addTelefono()" *ngIf="i + 1 === telefonos.controls.length && i < 2">
+            <ion-button (click)="addTelefono(1)" *ngIf="i + 1 === telefonos.controls.length && i < 2">
               <ion-icon class="ion-text-center" name="add"></ion-icon>
             </ion-button>
           </ion-item>

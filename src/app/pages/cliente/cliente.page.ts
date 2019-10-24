@@ -1,5 +1,5 @@
 import { FirebaseService } from './../../services/firebase.service';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -13,13 +13,14 @@ export class ClientePage implements OnInit {
 
   clienteForm: FormGroup;
   clienteID = '';
+  toast: any;
 
   constructor(
     private fb: FormBuilder,
     private nav: NavController,
     private fbase: FirebaseService,
-    private alertController: AlertController,
     private router: ActivatedRoute,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -36,6 +37,9 @@ export class ClientePage implements OnInit {
       if (data.id === 'new') { return; }
       this.clienteID = data.id;
       this.fbase.leerCliente(data.id).subscribe(dato => {
+        if (dato.data().telefono.length > 1) {
+          this.addTelefono(dato.data().telefono.length - 1);
+        }
         this.clienteForm.patchValue(
           dato.data()
         );
@@ -48,8 +52,10 @@ export class ClientePage implements OnInit {
     return this.clienteForm.get('telefono') as FormArray;
   }
 
-  addTelefono() {
-    this.telefonos.push(new FormControl(''));
+  addTelefono(cantidad: number) {
+    for (let i = 0; i < cantidad; i++) {
+      this.telefonos.push(new FormControl(''));
+    }
   }
 
   removeTelefono(index: number) {
@@ -71,11 +77,13 @@ export class ClientePage implements OnInit {
     if (this.clienteForm.invalid) { return; }
     if (this.clienteID === '') {
       this.fbase.addCliente(this.clienteForm.value).then(() => {
-        this.presentAlert('Cliente añadido correctamente.');
+        this.presentToast('Cliente dado de alta correctamente.');
+        this.nav.back();
       });
     } else {
       this.fbase.actualizarCliente(this.clienteID, this.clienteForm.value).then(() => {
-        this.presentAlert('Cliente actualizado correctamente.');
+        this.presentToast('Cliente actualizado correctamente.');
+        this.nav.back();
       });
     }
   }
@@ -84,22 +92,14 @@ export class ClientePage implements OnInit {
     this.nav.navigateBack('/clientes');
   }
 
-  async presentAlert(msg) {
-    const alert = await this.alertController.create({
-      header: 'Completado',
-      animated: true,
-      backdropDismiss: false,
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
       message: msg,
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-            this.cancelar();
-          }
-        }
-      ]
+      duration: 1200,
+      showCloseButton: true,
+      translucent: true
     });
-    await alert.present();
+    toast.present();
   }
 
 }

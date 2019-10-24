@@ -1,9 +1,9 @@
 import { DatosService } from '../../../services/datos.service';
-import { AuthService } from './../../../services/auth.service';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { FirebaseService } from './../../../services/firebase.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-aviso',
@@ -14,38 +14,69 @@ export class AddAvisoPage implements OnInit {
 
   avisoForm: FormGroup;
   avisoID: string;
+  minDate: string;
+  maxDate: string;
 
   constructor(
     private fb: FormBuilder,
     public fBase: FirebaseService,
     private nav: NavController,
-    public datos: DatosService
+    public datos: DatosService,
+    private datePipe: DatePipe,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
     if (!this.datos.clientes) {
       this.datos.getClientes();
     }
+    this.setMinMaxDate();
     this.avisoForm = this.fb.group({
-      clienteID: [''],
-      descipcionAviso: [''],
+      clienteID: ['', Validators.required],
+      descipcionAviso: ['', Validators.required],
       intervencion: [''],
       fechaEntrada: [''],
+      fechaCita: [''],
       fechaFin: [''],
       precio: [''],
-      tecnicoID: ['']
+      tecnicoID: ['', Validators.required]
     });
     this.avisoForm.get('tecnicoID').setValue(this.datos.usuarioID);
-    this.avisoForm.get('fechaEntrada').setValue(new Date());
+    this.avisoForm.get('fechaEntrada').setValue(new Date().toISOString());
+  }
+
+  setMinMaxDate() {
+    const min = new Date();
+    this.minDate = this.datePipe.transform(min, 'yyyy-MM-dd');
+    const max = new Date().setDate(min.getDate() + 365);
+    this.maxDate = this.datePipe.transform(max, 'yyyy-MM-dd');
   }
 
   cancelar() {
     this.nav.navigateBack('/avisos');
   }
 
+  aceptar() {
+    if (this.avisoForm.invalid) { return; }
+    this.fBase.addAviso(this.avisoForm.value).then(data => {
+      this.presentToast();
+      this.nav.back();
+    });
+  }
+
   elegirCliente(event) {
     this.avisoForm.get('clienteID').setValue(event.value.id);
 
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Aviso dado de alta correctamente.',
+      duration: 2000,
+      showCloseButton: true,
+      translucent: true
+    });
+    toast.present();
   }
 
 }

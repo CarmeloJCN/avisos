@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -24,6 +24,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicSelectableModule
   ],
-  declarations: [AddAvisoPage]
+  declarations: [AddAvisoPage],
+  providers: [DatePipe]
 })
 export class AddAvisoPageModule { }

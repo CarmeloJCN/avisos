@@ -1,8 +1,8 @@
+import { AvisoModel } from './../models/aviso.model';
 import { ClienteModel } from './../models/cliente.model';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { tap, take } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 
 @Injectable({
@@ -17,6 +17,10 @@ export class FirebaseService {
 
   addCliente(cliente: ClienteModel) {
     return this.firestore.collection('clientes').add(cliente);
+  }
+
+  addAviso(aviso: AvisoModel) {
+    return this.firestore.collection('avisos').add(aviso);
   }
 
   leerClientes() {
