@@ -42,10 +42,12 @@ export class DatosService {
           return {
             id: a.payload.doc.id,
             clienteID: a.payload.doc.data().clienteID,
+            cliente: this.getCliente(a.payload.doc.data().clienteID),
             descripcionAviso: a.payload.doc.data().descripcionAviso,
             intervencion: a.payload.doc.data().intervencion || '',
             fechaEntrada: a.payload.doc.data().fechaEntrada,
             fechaFin: a.payload.doc.data().fechaFin || '',
+            fechaCita: a.payload.doc.data().fechaCita || '',
             precio: a.payload.doc.data().precio || '',
             tecnicoID: a.payload.doc.data().tecnicoID,
             cerrado: a.payload.doc.data().cerrado
@@ -58,5 +60,10 @@ export class DatosService {
     this.fb.leerTecnico(this.auth.user.uid).subscribe(data => {
       this.usuarioID = data[0].payload.doc.id;
     });
+  }
+
+  getCliente(id: string) {
+    const cliente = this.clientes.filter(client => client.id === id);
+    return cliente[0];
   }
 }

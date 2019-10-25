@@ -5,6 +5,11 @@
     </ion-buttons>
     <ion-title>Avisos</ion-title>
   </ion-toolbar>
+  <ion-row fixed>
+      <ion-col>Nombre</ion-col>
+      <ion-col>Cita</ion-col>
+      <ion-col>Dirección</ion-col>
+    </ion-row>
 </ion-header>
 
 <ion-content>
@@ -16,10 +21,11 @@
     </ion-item-options>
 
     <ion-item detail>
-      <ion-grid fixed>
-        <ion-row>
-          <ion-col>{{ item.descripcionAviso }}</ion-col>
-          <ion-col>{{ item.fechaEntrada }}</ion-col>
+      <ion-grid>
+        <ion-row scrollX="true">
+          <ion-col>{{ item.cliente.nombre }}</ion-col>
+          <ion-col>{{ item.fechaCita | date: 'dd/MM HH:mm' }}</ion-col>
+          <ion-col>{{ item.cliente.direccion }}</ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>

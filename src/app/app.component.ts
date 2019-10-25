@@ -44,6 +44,12 @@ export class AppComponent {
       this.auth.userUID$.subscribe(user => {
         this.datos.getUsuarioID();
       });
+      if (!this.datos.clientes) {
+        this.datos.getClientes();
+      }
+      if (!this.datos.avisos) {
+        this.datos.getAvisos();
+      }
     });
   }
 
