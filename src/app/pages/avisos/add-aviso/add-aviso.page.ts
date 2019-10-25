@@ -33,13 +33,14 @@ export class AddAvisoPage implements OnInit {
     this.setMinMaxDate();
     this.avisoForm = this.fb.group({
       clienteID: ['', Validators.required],
-      descipcionAviso: ['', Validators.required],
+      descripcionAviso: ['', Validators.required],
       intervencion: [''],
       fechaEntrada: [''],
       fechaCita: [''],
       fechaFin: [''],
       precio: [''],
-      tecnicoID: ['', Validators.required]
+      tecnicoID: ['', Validators.required],
+      cerrado: false
     });
     this.avisoForm.get('tecnicoID').setValue(this.datos.usuarioID);
     this.avisoForm.get('fechaEntrada').setValue(new Date().toISOString());

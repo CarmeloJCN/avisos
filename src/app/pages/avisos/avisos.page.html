@@ -8,6 +8,22 @@
 </ion-header>
 
 <ion-content>
+  <ion-item-sliding #sliding *ngFor="let item of datos.avisos">
+    <ion-item-options side="end">
+      <ion-item-option color="danger">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+
+    <ion-item detail>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col>{{ item.descripcionAviso }}</ion-col>
+          <ion-col>{{ item.fechaEntrada }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-item-sliding>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addAviso()">
     <ion-fab-button color="primary">
       <ion-icon name="add"></ion-icon>

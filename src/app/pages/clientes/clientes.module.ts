@@ -1,3 +1,4 @@
+import { PipesModule } from './../../pipes/pipes.module';
 import { NameFilterPipe } from './../../pipes/name-filter.pipe';
 import { ClientesComponent } from './clientes.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,12 +15,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ClientesComponent, NameFilterPipe],
+  declarations: [ClientesComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    PipesModule
   ]
 })
 export class ClientesPageModule { }

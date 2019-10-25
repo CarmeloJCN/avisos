@@ -1,6 +1,4 @@
 import { DatosService } from '../../services/datos.service';
-import { AuthService } from './../../services/auth.service';
-import { takeUntil } from 'rxjs/operators';
 import { ClienteModel } from './../../models/cliente.model';
 import { NavController, AlertController, IonList } from '@ionic/angular';
 import { FirebaseService } from './../../services/firebase.service';

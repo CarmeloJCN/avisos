@@ -1,3 +1,4 @@
+import { DatosService } from './../../services/datos.service';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,10 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class AvisosPage implements OnInit {
 
   constructor(
-    private nav: NavController
+    private nav: NavController,
+    public datos: DatosService
   ) { }
 
   ngOnInit() {
+    if (!this.datos.avisos) {
+      this.datos.getAvisos();
+    }
   }
 
 

@@ -27,6 +27,10 @@ export class FirebaseService {
     return this.firestore.collection('clientes').snapshotChanges();
   }
 
+  leerAvisos() {
+    return this.firestore.collection('avisos').snapshotChanges();
+  }
+
   leerCliente(clienteID: string) {
     return this.firestore.doc('clientes/' + clienteID).get();
   }
