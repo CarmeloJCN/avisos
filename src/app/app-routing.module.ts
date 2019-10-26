@@ -26,10 +26,14 @@ const routes: Routes = [
   },
   {
     path: 'cliente/:id',
-    loadChildren: './pages/cliente/cliente.module#ClientePageModule',
+    loadChildren: './pages/clientes/cliente/cliente.module#ClientePageModule',
     canActivate: [AuthGuard]
   },
-  { path: 'add-aviso/:id', loadChildren: './pages/avisos/add-aviso/add-aviso.module#AddAvisoPageModule' }
+  {
+    path: 'add-aviso/:id',
+    loadChildren: './pages/avisos/add-aviso/add-aviso.module#AddAvisoPageModule',
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

@@ -16,22 +16,13 @@
       <div class="ion-padding">
         <ion-item>
           <ion-label>Cliente</ion-label>
-          <ionic-selectable
-            [items]="datos.clientes"
-            itemValueField="id"
-            itemTextField="nombre"
-            [canSearch]="true"
-            (onChange)="elegirCliente($event)"
-          ></ionic-selectable>
+          <ionic-selectable [items]="datos.clientes" itemValueField="id" itemTextField="nombre" [canSearch]="true"
+            (onChange)="elegirCliente($event)"></ionic-selectable>
         </ion-item>
         <ion-item detail>
           <ion-label>Fecha de Cita:</ion-label>
-          <ion-datetime
-            formControlName="fechaCita"
-            [min]="minDate"
-            [max]="maxDate"
-            display-format="DD.MM.YYYY HH:mm"
-          ></ion-datetime>
+          <ion-datetime formControlName="fechaCita" [min]="minDate" [max]="maxDate" display-format="DD.MM.YYYY HH:mm">
+          </ion-datetime>
         </ion-item>
         <ion-item>
           <div class="item">
@@ -46,7 +37,7 @@
       </div>
     </ion-list>
   </form>
-  <!--   <pre>
+  <pre>
     {{ avisoForm.value | json }}
-  </pre> -->
+  </pre>
 </ion-content>

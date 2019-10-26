@@ -1,5 +1,5 @@
-import { FirebaseService } from './../../services/firebase.service';
-import { NavController, AlertController, ToastController } from '@ionic/angular';
+import { FirebaseService } from '../../../services/firebase.service';
+import { NavController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +20,7 @@ export class ClientePage implements OnInit {
     private nav: NavController,
     private fbase: FirebaseService,
     private router: ActivatedRoute,
-    private toastController: ToastController
+    private toastController: ToastController,
   ) { }
 
   ngOnInit() {

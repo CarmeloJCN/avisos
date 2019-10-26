@@ -4,6 +4,7 @@ import { FirebaseService } from './../../../services/firebase.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-aviso',
@@ -42,8 +43,18 @@ export class AddAvisoPage implements OnInit {
       tecnicoID: ['', Validators.required],
       cerrado: false
     });
-    this.avisoForm.get('tecnicoID').setValue(this.datos.usuarioID);
+    this.setTecnicoID();
     this.avisoForm.get('fechaEntrada').setValue(new Date().toISOString());
+  }
+
+  setTecnicoID() {
+    if (this.datos.usuarioID) {
+      this.avisoForm.get('tecnicoID').setValue(this.datos.usuarioID);
+    } else {
+      this.datos.getUsuarioID().pipe(take(1)).subscribe(data => {
+        this.avisoForm.get('tecnicoID').setValue(data[0].payload.doc.id);
+      });
+    }
   }
 
   setMinMaxDate() {

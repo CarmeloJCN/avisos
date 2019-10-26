@@ -13,7 +13,6 @@ export class AuthService {
 
   user: User;
   unsubscribe$: Subject<void> = new Subject();
-  userUID$: Subject<string> = new Subject();
 
   constructor(
     public afAuth: AngularFireAuth, public nav: NavController
@@ -21,7 +20,6 @@ export class AuthService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.user = user;
-        this.userUID$.next(user.uid);
         localStorage.setItem('user', JSON.stringify(this.user));
       } else {
         localStorage.setItem('user', null);

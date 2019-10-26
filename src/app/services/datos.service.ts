@@ -1,9 +1,9 @@
-import { AuthService } from './auth.service';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { FirebaseService } from './firebase.service';
 import { ClienteModel } from '../models/cliente.model';
 import { Injectable } from '@angular/core';
 import { AvisoModel } from '../models/aviso.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,11 @@ export class DatosService {
   constructor(
     private fb: FirebaseService,
     private auth: AuthService
-  ) { }
+  ) {
+    this.getUsuarioID();
+    this.getClientes();
+    this.getAvisos();
+  }
 
   getClientes() {
     this.fb.leerClientes().pipe(takeUntil(this.auth.unsubscribe$))
@@ -57,13 +61,14 @@ export class DatosService {
   }
 
   getUsuarioID() {
-    this.fb.leerTecnico(this.auth.user.uid).subscribe(data => {
-      this.usuarioID = data[0].payload.doc.id;
-    });
+    const user = JSON.parse(localStorage.getItem('user'));
+    return this.fb.leerTecnico(user.uid).pipe(tap(datos => {
+      this.usuarioID = datos[0].payload.doc.id;
+    }));
   }
 
   getCliente(id: string) {
-    const cliente = this.clientes.filter(client => client.id === id);
-    return cliente[0];
+    return this.clientes.find(client => client.id === id);
   }
+
 }
