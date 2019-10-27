@@ -15,9 +15,7 @@ export class AvisosPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (!this.datos.avisos) {
-      this.datos.getAvisos();
-    }
+
   }
 
 

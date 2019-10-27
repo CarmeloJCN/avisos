@@ -28,9 +28,6 @@ export class AddAvisoPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (!this.datos.clientes) {
-      this.datos.getClientes();
-    }
     this.setMinMaxDate();
     this.avisoForm = this.fb.group({
       clienteID: ['', Validators.required],

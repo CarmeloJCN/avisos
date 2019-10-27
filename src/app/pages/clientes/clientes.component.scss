@@ -1,8 +1,17 @@
 :host {
   .datos {
-    display: flex;
+    display        : flex;
     justify-content: space-between;
-    font-size: 14px;
+    font-size      : 14px;
+  }
+
+  .direccion {
+    font-size: 13px;
+    color    : #858585fa;
+  }
+
+  .nombre {
+    font-weight: bold;
   }
 
   .header {
@@ -11,21 +20,17 @@
   }
 
   .title {
-    color: #3880ff;
+    color      : #3880ff;
     font-weight: bold;
   }
 
   .dato {
     font-size: 14px;
   }
-  ion-row {
-    min-width: 415px;
-  }
 
   ion-item {
     ion-row {
       min-width: 415px;
-      min-height: 60px;
     }
   }
 

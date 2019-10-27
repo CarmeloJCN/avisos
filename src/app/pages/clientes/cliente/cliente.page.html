@@ -16,28 +16,28 @@
       <div class="ion-padding">
         <ion-item>
           <ion-label>Nombre</ion-label>
-          <ion-input autocapitalization=words formControlName="nombre" type="name"></ion-input>
+          <ion-input clearInput autocapitalization=words formControlName="nombre" type="name"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Dirección</ion-label>
-          <ion-input formControlName="direccion" type="text" autocomplete="address"></ion-input>
+          <ion-input clearInput formControlName="direccion" type="text" autocomplete="address"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>CIF/NIF</ion-label>
-          <ion-input formControlName="cifNif" type="text" placeholder="12345678X"></ion-input>
+          <ion-input clearInput formControlName="cifNif" type="text" placeholder="12345678X"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Email</ion-label>
-          <ion-input formControlName="email" type="text" placeholder="your@email.com"></ion-input>
+          <ion-input clearInput formControlName="email" type="text" placeholder="your@email.com"></ion-input>
         </ion-item>
         <div formArrayName="telefono">
           <ion-item *ngFor="let item of telefonos.controls; index as i">
             <ion-label>{{ getTelefonoLabel(i) }}</ion-label>
-            <ion-input [formControlName]="i" type="text"></ion-input>
+            <ion-input clearInput [formControlName]="i" type="text"></ion-input>
             <ion-button (click)="removeTelefono(i)" *ngIf="i > 0" color="danger">
               <ion-icon class="ion-text-center" name="remove"></ion-icon>
             </ion-button>
-            <ion-button (click)="addTelefono(1)" *ngIf="i + 1 === telefonos.controls.length && i < 2">
+            <ion-button (click)="addTelefono(1)" *ngIf="i + 1 === telefonos.controls.length && i < 1">
               <ion-icon class="ion-text-center" name="add"></ion-icon>
             </ion-button>
           </ion-item>

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Platform, MenuController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     public auth: AuthService,
     private menu: MenuController,
-    private nav: NavController
+    private nav: NavController,
+    private swUpdate: SwUpdate
   ) {
     this.initializeApp();
   }
@@ -39,7 +41,18 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.comprobarActualizaciones();
     });
+  }
+
+  private comprobarActualizaciones() {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(() => {
+        if (confirm('Nueve versión disponible.¿Actualizar?')) {
+          window.location.reload();
+        }
+      });
+    }
   }
 
   logOut() {

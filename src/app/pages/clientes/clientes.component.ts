@@ -24,9 +24,7 @@ export class ClientesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (!this.datos.clientes) {
-      this.datos.getClientes();
-    }
+
   }
 
   goClient(id: string) {
