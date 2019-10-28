@@ -8,48 +8,5 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="clienteForm">
-    <ion-list lines="full" class="ion-no-margin ion-no-padding">
-      <div class="ion-text-center">
-        <h3>{{ 'AVISOS.CLIENTES.SUBTITLE' | translate }}</h3>
-      </div>
-      <div class="ion-padding">
-        <ion-item>
-          <ion-label>{{ 'AVISOS.CLIENTES.NOMBRE' | translate }}</ion-label>
-          <ion-input clearInput formControlName="nombre" type="name"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>{{ 'AVISOS.CLIENTES.DIRECCION' | translate }}</ion-label>
-          <ion-input clearInput formControlName="direccion" type="text" autocomplete="address"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>{{ 'AVISOS.CLIENTES.CIF_NIF' | translate }}</ion-label>
-          <ion-input clearInput formControlName="cifNif" type="text" placeholder="12345678X | X12345678"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>{{ 'AVISOS.CLIENTES.EMAIL' | translate }}</ion-label>
-          <ion-input clearInput formControlName="email" type="text"
-            [placeholder]="'AVISOS.COMUN.PLACE_EMAIL' | translate"></ion-input>
-        </ion-item>
-        <div formArrayName="telefono">
-          <ion-item *ngFor="let item of telefonos.controls; index as i">
-            <ion-label>{{ getTelefonoLabel(i) }}</ion-label>
-            <ion-input clearInput [formControlName]="i" type="text"></ion-input>
-            <ion-button (click)="removeTelefono(i)" *ngIf="i > 0" color="danger">
-              <ion-icon class="ion-text-center" name="remove"></ion-icon>
-            </ion-button>
-            <ion-button (click)="addTelefono(1)" *ngIf="i + 1 === telefonos.controls.length && i < 1">
-              <ion-icon class="ion-text-center" name="add"></ion-icon>
-            </ion-button>
-          </ion-item>
-        </div>
-      </div>
-      <div class="ion-justify-content-evenly" style="display: flex">
-        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="cancelar()">
-          {{ 'AVISOS.COMUN.CANCELAR' | translate }}</ion-button>
-        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="aceptar()">
-          {{ 'AVISOS.COMUN.ACEPTAR' | translate }}</ion-button>
-      </div>
-    </ion-list>
-  </form>
+  <app-add-client (cerrar)="cerrar()"></app-add-client>
 </ion-content>

@@ -4,9 +4,10 @@ import { DatosService } from '../../../services/datos.service';
 import { NavController, ToastController } from '@ionic/angular';
 import { FirebaseService } from './../../../services/firebase.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { take } from 'rxjs/operators';
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 @Component({
   selector: 'app-add-aviso',
@@ -19,7 +20,7 @@ export class AddAvisoPage implements OnInit {
   avisoID: string;
   minDate: string;
   maxDate: string;
-  numAviso: number;
+  @ViewChild('select', { static: true }) select: IonicSelectableComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -35,7 +36,7 @@ export class AddAvisoPage implements OnInit {
     this.setMinMaxDate();
     this.avisoForm = this.fb.group({
       cliente: ['', Validators.required],
-      numAviso: [this.setNumAviso()],
+      numAviso: [''],
       descripcionAviso: ['', Validators.required],
       intervencion: [''],
       fechaEntrada: [''],
@@ -46,19 +47,22 @@ export class AddAvisoPage implements OnInit {
       cerrado: false
     });
     this.setTecnicoID();
+    this.setNumAviso();
     this.avisoForm.get('fechaEntrada').setValue(new Date().toISOString());
   }
 
   private setNumAviso() {
-    if (localStorage.getItem('num')) {
-      this.numAviso = Number.parseInt(localStorage.getItem('num'), 10) + 1;
-    } else {
-      this.numAviso = 1;
-    }
-    const str = '' + this.numAviso;
-    const pad = '0000';
-    return AVISOS_CONSTANTS.ENCABEZADO_AVISO + pad.substring(0, pad.length - str.length) + str;
-
+    this.fBase.leerNumAviso().subscribe(data => {
+      if (data.docs[0].data().numAviso) {
+        const aviso = data.docs[0].data().numAviso.split('-');
+        const num = Number.parseInt(aviso[1], 10);
+        const str = '' + (num + 1);
+        const pad = '0000';
+        this.avisoForm.get('numAviso').setValue(AVISOS_CONSTANTS.ENCABEZADO_AVISO + pad.substring(0, pad.length - str.length) + str);
+      } else {
+        this.avisoForm.get('numAviso').setValue(AVISOS_CONSTANTS.ENCABEZADO_AVISO + '0001');
+      }
+    });
   }
 
   private setTecnicoID() {
@@ -85,7 +89,6 @@ export class AddAvisoPage implements OnInit {
   aceptar() {
     if (this.avisoForm.invalid) { return; }
     this.fBase.addAviso(this.avisoForm.value).then(data => {
-      localStorage.setItem('num', this.numAviso.toString());
       this.presentToast();
       this.nav.back();
     });
@@ -99,6 +102,15 @@ export class AddAvisoPage implements OnInit {
       translucent: true
     });
     toast.present();
+  }
+
+  addClient(event) {
+    this.select.showAddItemTemplate();
+
+  }
+
+  cerrarAddClient() {
+    this.select.hideAddItemTemplate();
   }
 
 }

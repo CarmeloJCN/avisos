@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../../../components/components.module';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -24,7 +25,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     IonicSelectableModule,
-    TranslateModule
+    TranslateModule,
+    ComponentsModule
   ],
   declarations: [AddAvisoPage],
   providers: [DatePipe, TranslateService]

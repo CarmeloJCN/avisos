@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../../../components/components.module';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -22,7 +23,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    ComponentsModule
   ],
   declarations: [ClientePage],
   providers: [TranslateService]

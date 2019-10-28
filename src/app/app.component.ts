@@ -18,7 +18,7 @@ export class AppComponent {
     {
       title: 'AVISOS.TITLE',
       url: '/avisos',
-      icon: 'home'
+      icon: 'create'
     },
     {
       title: 'AVISOS.CLIENTES.TITLE',
@@ -64,7 +64,7 @@ export class AppComponent {
     if (AVISOS_CONSTANTS.IDIOMAS.indexOf(idioma) > -1) {
       this.translate.setDefaultLang(idioma);
     } else {
-      this.translate.setDefaultLang('en');
+      this.translate.setDefaultLang('es');
     }
   }
 
