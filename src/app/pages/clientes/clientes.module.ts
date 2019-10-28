@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PipesModule } from './../../pipes/pipes.module';
 import { FilterPipe } from '../../pipes/filter.pipe';
 import { ClientesComponent } from './clientes.component';
@@ -21,7 +22,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    PipesModule
-  ]
+    PipesModule,
+    TranslateModule
+  ],
+  providers: [TranslateService]
 })
 export class ClientesPageModule { }

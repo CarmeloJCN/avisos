@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start"> </ion-buttons>
-    <ion-title>login</ion-title>
+    <ion-title>{{ 'AVISOS.LOGIN' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,45 +11,46 @@
       <ion-row color="primary" class="ion-justify-content-center">
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
           <div class="ion-text-center">
-            <h3>Bienvenido</h3>
-            <h5>Introduce tus datos para continuar</h5>
+            <h3>{{ 'AVISOS.LOGIN.BIENVIENIDO' | translate }}</h3>
+            <h5>{{ 'AVISOS.LOGIN.SUBTITLE' | translate }}</h5>
           </div>
           <div class="ion-padding">
             <ion-item>
-              <ion-input name="email" type="email" placeholder="tu@email.com" [(ngModel)]="usuario.email"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required></ion-input>
+              <ion-input name="email" type="email" [placeholder]="'AVISOS.COMUN.PLACE_EMAIL' | translate"
+                [(ngModel)]="usuario.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required></ion-input>
             </ion-item>
             <div class="text-danger">
               <small
-                *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('pattern')">Debes
-                de introducir tu email correctamente.
+                *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('pattern')">
+                {{ 'AVISOS.ERRORES.FORMATO_EMAIL' | translate }}
               </small>
               <small
-                *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('required')">Campo
-                obligatorio.
+                *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('required')">
+                {{ 'AVISOS.ERRORES.OBLIGATORIO' | translate }}
               </small>
             </div>
             <ion-item>
-              <ion-input name="password" type="password" placeholder="Password" [(ngModel)]="usuario.password" required
-                minlength="6"></ion-input>
+              <ion-input name="password" type="password" [placeholder]="'AVISOS.COMUN.PLACE_PASS' | translate"
+                [(ngModel)]="usuario.password" required minlength="6"></ion-input>
             </ion-item>
             <div class="text-danger">
               <small
                 *ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('minlength')">
-                La contraseña debe de ser más de 5 letras.
+                {{ 'AVISOS.ERRORES.PASS_MIN_LENGTH' | translate }}
               </small>
               <small
                 *ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('required')">
-                Campo obligatorio.
+                {{ 'AVISOS.ERRORES.OBLIGATORIO' | translate }}
               </small>
             </div>
             <ion-item>
               <ion-checkbox slot="start" [(ngModel)]="recordar" name="recordar"></ion-checkbox>
-              <ion-label>Recordar email?</ion-label>
+              <ion-label>{{ 'AVISOS.LOGIN.RECORDAR' | translate }}</ion-label>
             </ion-item>
           </div>
           <div class="ion-padding ion-text-center">
-            <ion-button color="primary" expand="block" class="ion-no-margin" (click)="login(form)">Login</ion-button>
+            <ion-button color="primary" expand="block" class="ion-no-margin" (click)="login(form)">
+              {{ 'AVISOS.COMUN.ACEPTAR' | translate }}</ion-button>
           </div>
         </ion-list>
       </ion-row>

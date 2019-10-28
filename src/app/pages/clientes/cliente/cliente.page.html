@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Cliente</ion-title>
+    <ion-title>{{ 'AVISOS.CLIENTES.CLIENTE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,24 +11,25 @@
   <form [formGroup]="clienteForm">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <div class="ion-text-center">
-        <h3>Información del cliente</h3>
+        <h3>{{ 'AVISOS.CLIENTES.SUBTITLE' | translate }}</h3>
       </div>
       <div class="ion-padding">
         <ion-item>
-          <ion-label>Nombre</ion-label>
-          <ion-input clearInput autocapitalization=words formControlName="nombre" type="name"></ion-input>
+          <ion-label>{{ 'AVISOS.CLIENTES.NOMBRE' | translate }}</ion-label>
+          <ion-input clearInput formControlName="nombre" type="name"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Dirección</ion-label>
+          <ion-label>{{ 'AVISOS.CLIENTES.DIRECCION' | translate }}</ion-label>
           <ion-input clearInput formControlName="direccion" type="text" autocomplete="address"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>CIF/NIF</ion-label>
-          <ion-input clearInput formControlName="cifNif" type="text" placeholder="12345678X"></ion-input>
+          <ion-label>{{ 'AVISOS.CLIENTES.CIF_NIF' | translate }}</ion-label>
+          <ion-input clearInput formControlName="cifNif" type="text" placeholder="12345678X | X12345678"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Email</ion-label>
-          <ion-input clearInput formControlName="email" type="text" placeholder="your@email.com"></ion-input>
+          <ion-label>{{ 'AVISOS.CLIENTES.EMAIL' | translate }}</ion-label>
+          <ion-input clearInput formControlName="email" type="text"
+            [placeholder]="'AVISOS.COMUN.PLACE_EMAIL' | translate"></ion-input>
         </ion-item>
         <div formArrayName="telefono">
           <ion-item *ngFor="let item of telefonos.controls; index as i">
@@ -44,8 +45,10 @@
         </div>
       </div>
       <div class="ion-justify-content-evenly" style="display: flex">
-        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="cancelar()">Cancelar</ion-button>
-        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="aceptar()">Aceptar</ion-button>
+        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="cancelar()">
+          {{ 'AVISOS.COMUN.CANCELAR' | translate }}</ion-button>
+        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="aceptar()">
+          {{ 'AVISOS.COMUN.ACEPTAR' | translate }}</ion-button>
       </div>
     </ion-list>
   </form>

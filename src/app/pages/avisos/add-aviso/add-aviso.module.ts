@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,9 +23,10 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    IonicSelectableModule
+    IonicSelectableModule,
+    TranslateModule
   ],
   declarations: [AddAvisoPage],
-  providers: [DatePipe]
+  providers: [DatePipe, TranslateService]
 })
 export class AddAvisoPageModule { }

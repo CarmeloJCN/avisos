@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { DatosService } from '../../services/datos.service';
 import { ClienteModel } from './../../models/cliente.model';
 import { NavController, AlertController, IonList } from '@ionic/angular';
@@ -20,7 +21,8 @@ export class ClientesComponent implements OnInit {
     public fb: FirebaseService,
     private nav: NavController,
     private alertController: AlertController,
-    public datos: DatosService
+    public datos: DatosService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -46,20 +48,19 @@ export class ClientesComponent implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Completado',
       animated: true,
       backdropDismiss: false,
-      message: '¿Estás seguro de que quieres borrar este elemento?',
+      message: this.translate.instant('AVISOS.COMUN.BORRAR_MSG'),
       buttons: [
         {
-          text: 'NO',
+          text: this.translate.instant('AVISOS.COMUN.NO'),
           role: 'cancel',
           handler: data => {
             this.lista.closeSlidingItems();
           }
         },
         {
-          text: 'SI',
+          text: this.translate.instant('AVISOS.COMUN.SI'),
           handler: data => {
             this.fb.borrarCliente(this.clientID);
             this.lista.closeSlidingItems();

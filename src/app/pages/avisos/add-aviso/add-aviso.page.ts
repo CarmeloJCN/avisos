@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { AVISOS_CONSTANTS } from './../../../app.constants';
 import { DatosService } from '../../../services/datos.service';
 import { NavController, ToastController } from '@ionic/angular';
@@ -26,7 +27,8 @@ export class AddAvisoPage implements OnInit {
     private nav: NavController,
     public datos: DatosService,
     private datePipe: DatePipe,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -91,7 +93,7 @@ export class AddAvisoPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Aviso dado de alta correctamente.',
+      message: this.translate.instant('AVISOS.AVISO.ALTA_MSG'),
       duration: 2000,
       showCloseButton: true,
       translucent: true

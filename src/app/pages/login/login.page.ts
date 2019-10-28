@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { UsuarioModel } from './../../models/usuario.model';
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
     private router: NavController,
     public loadingController: LoadingController,
     public alertController: AlertController,
-    private menu: MenuController
+    private menu: MenuController,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -56,7 +58,7 @@ export class LoginPage implements OnInit {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
-      message: 'Por favor, espere...',
+      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG'),
       duration: 2000
     });
     await this.loading.present();
@@ -66,25 +68,25 @@ export class LoginPage implements OnInit {
     let msg: string;
     switch (err.code) {
       case ('auth/wrong-password'):
-        msg = 'Contraseña incorrecta.';
+        msg = this.translate.instant('AVISOS.ERRORES.WRONG_PASS');
         break;
       case ('auth/user-not-found'):
-        msg = 'Usuario no encontrado.';
+        msg = this.translate.instant('AVISOS.ERRORES.WRONG_USER');
         break;
       case ('auth/too-many-requests'):
-        msg = 'Demasiados intentos, intentelo de nuevo más tarde';
+        msg = this.translate.instant('AVISOS.ERRORES.TOO_MANY_REQUEST');
         break;
       default:
-        msg = 'Ha ocurrido un problema.';
+        msg = this.translate.instant('AVISOS.ERRORES.GENERIC');
         break;
 
     }
     const alert = await this.alertController.create({
-      header: 'Error',
+      header: this.translate.instant('AVISOS.ERRORES.HEADER'),
       animated: true,
       backdropDismiss: false,
       message: msg,
-      buttons: ['OK']
+      buttons: [this.translate.instant('AVISOS.COMUN.ACEPTAR')]
     });
     await alert.present();
   }

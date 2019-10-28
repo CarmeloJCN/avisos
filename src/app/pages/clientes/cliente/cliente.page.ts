@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { FirebaseService } from '../../../services/firebase.service';
 import { NavController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -21,6 +22,7 @@ export class ClientePage implements OnInit {
     private fbase: FirebaseService,
     private router: ActivatedRoute,
     private toastController: ToastController,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -63,7 +65,8 @@ export class ClientePage implements OnInit {
   }
 
   getTelefonoLabel(index: number) {
-    return `Teléfono ${index + 1}`;
+    const num = index + 1;
+    return this.translate.instant('AVISOS.CLIENTES.TELEFONO', { num });
   }
 
   validarCif(control: FormControl): { [s: string]: boolean } {
@@ -77,12 +80,12 @@ export class ClientePage implements OnInit {
     if (this.clienteForm.invalid) { return; }
     if (this.clienteID === '') {
       this.fbase.addCliente(this.clienteForm.value).then(() => {
-        this.presentToast('Cliente dado de alta correctamente.');
+        this.presentToast(this.translate.instant('AVISOS.CLIENTES.ALTA_MSG'));
         this.nav.back();
       });
     } else {
       this.fbase.actualizarCliente(this.clienteID, this.clienteForm.value).then(() => {
-        this.presentToast('Cliente actualizado correctamente.');
+        this.presentToast(this.translate.instant('AVISOS.CLIENTES.ACTU_MSG'));
         this.nav.back();
       });
     }
