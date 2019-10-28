@@ -15,51 +15,34 @@
             <h5>Introduce tus datos para continuar</h5>
           </div>
           <div class="ion-padding">
-            <span
-              *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('pattern')"
-              class="text-danger"
-              >Debes de introducir tu email correctamente.
-            </span>
-            <span
-              *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('required')"
-              class="text-danger"
-              >Campo obligatorio.
-            </span>
             <ion-item>
-              <ion-input
-                name="email"
-                type="email"
-                placeholder="tu@email.com"
-                [(ngModel)]="usuario.email"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                required
-              ></ion-input>
+              <ion-input name="email" type="email" placeholder="tu@email.com" [(ngModel)]="usuario.email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required></ion-input>
             </ion-item>
-            <hr />
-            <span
-              *ngIf="
-                form.touched && form.controls['password'].touched && form.controls['password'].hasError('minlength')
-              "
-              class="text-danger"
-              >La contraseña debe de ser más de 5 letras.
-            </span>
-            <span
-              *ngIf="
-                form.touched && form.controls['password'].touched && form.controls['password'].hasError('required')
-              "
-              class="text-danger"
-              >Campo obligatorio.
-            </span>
+            <div class="text-danger">
+              <small
+                *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('pattern')">Debes
+                de introducir tu email correctamente.
+              </small>
+              <small
+                *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('required')">Campo
+                obligatorio.
+              </small>
+            </div>
             <ion-item>
-              <ion-input
-                name="password"
-                type="password"
-                placeholder="Password"
-                [(ngModel)]="usuario.password"
-                required
-                minlength="6"
-              ></ion-input>
+              <ion-input name="password" type="password" placeholder="Password" [(ngModel)]="usuario.password" required
+                minlength="6"></ion-input>
             </ion-item>
+            <div class="text-danger">
+              <small
+                *ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('minlength')">
+                La contraseña debe de ser más de 5 letras.
+              </small>
+              <small
+                *ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('required')">
+                Campo obligatorio.
+              </small>
+            </div>
             <ion-item>
               <ion-checkbox slot="start" [(ngModel)]="recordar" name="recordar"></ion-checkbox>
               <ion-label>Recordar email?</ion-label>

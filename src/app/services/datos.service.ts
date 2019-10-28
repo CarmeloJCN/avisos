@@ -45,8 +45,8 @@ export class DatosService {
         this.avisos = data.map((a: any) => {
           return {
             id: a.payload.doc.id,
-            clienteID: a.payload.doc.data().clienteID,
-            cliente: this.getCliente(a.payload.doc.data().clienteID),
+            numAviso: a.payload.doc.data().numAviso,
+            cliente: a.payload.doc.data().cliente,
             descripcionAviso: a.payload.doc.data().descripcionAviso,
             intervencion: a.payload.doc.data().intervencion || '',
             fechaEntrada: a.payload.doc.data().fechaEntrada,
@@ -66,9 +66,4 @@ export class DatosService {
       this.usuarioID = datos[0].payload.doc.id;
     }));
   }
-
-  getCliente(id: string) {
-    return this.clientes.find(client => client.id === id);
-  }
-
 }

@@ -24,11 +24,11 @@ export class FirebaseService {
   }
 
   leerClientes() {
-    return this.firestore.collection('clientes').snapshotChanges();
+    return this.firestore.collection('clientes', ref => ref.orderBy('nombre')).snapshotChanges();
   }
 
   leerAvisos() {
-    return this.firestore.collection('avisos').snapshotChanges();
+    return this.firestore.collection('avisos', ref => ref.orderBy('numAviso')).snapshotChanges();
   }
 
   leerCliente(clienteID: string) {

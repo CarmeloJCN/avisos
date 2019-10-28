@@ -12,7 +12,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class ClientesComponent implements OnInit {
 
   clientes: Array<ClienteModel>;
-  nameFilter: string;
+  filterValue: string;
   clientID: string;
   @ViewChild(IonList, { static: true }) lista: IonList;
 
@@ -41,7 +41,7 @@ export class ClientesComponent implements OnInit {
   }
 
   onSearchChange(event) {
-    this.nameFilter = event.detail.value;
+    this.filterValue = event.detail.value;
   }
 
   async presentAlert() {

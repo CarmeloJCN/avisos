@@ -2,8 +2,8 @@ import { ClienteModel } from './cliente.model';
 
 export class AvisoModel {
   id?: string;
-  clienteID: string;
-  cliente?: ClienteModel;
+  numAviso: string;
+  cliente: ClienteModel;
   descripcionAviso: string;
   intervencion: string;
   fechaEntrada: Date;

@@ -14,10 +14,14 @@
         <h3>Información del aviso</h3>
       </div>
       <div class="ion-padding">
+        <ion-item class="aviso">
+          <div>Aviso:</div>
+          <ion-input type="text" [value]="avisoForm.value.numAviso" disabled></ion-input>
+        </ion-item>
         <ion-item>
           <ion-label>Cliente</ion-label>
-          <ionic-selectable [items]="datos.clientes" itemValueField="id" itemTextField="nombre" [canSearch]="true"
-            (onChange)="elegirCliente($event)"></ionic-selectable>
+          <ionic-selectable formControlName="cliente" [items]="datos.clientes" itemValueField="id"
+            itemTextField="nombre" [canSearch]="true"></ionic-selectable>
         </ion-item>
         <ion-item detail>
           <ion-label>Fecha de Cita:</ion-label>

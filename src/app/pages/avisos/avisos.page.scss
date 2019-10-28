@@ -2,4 +2,20 @@
   ion-fab {
     margin-bottom: 55px;
   }
+
+  .direccion {
+    font-size: 13px;
+    color    : #858585fa;
+  }
+
+  .nombre {
+    font-weight: bold;
+  }
+
+  ion-item {
+    ion-row {
+      min-width: 415px;
+    }
+  }
+
 }

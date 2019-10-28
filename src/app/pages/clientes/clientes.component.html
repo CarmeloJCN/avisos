@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-item-sliding #sliding
-    *ngFor="let item of datos.clientes | nameFilter: nameFilter:['nombre', 'direccion', 'telefono']">
+    *ngFor="let item of datos.clientes | filter: filterValue:['nombre', 'direccion', 'telefono']">
     <ion-item-options side="end">
       <ion-item-option color="danger" (click)="deleteCliente(item.id)">
         <ion-icon name="trash" slot="icon-only"></ion-icon>

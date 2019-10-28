@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AvisosPage implements OnInit {
 
+  filterValue: string;
+
   constructor(
     private nav: NavController,
     public datos: DatosService
@@ -18,10 +20,11 @@ export class AvisosPage implements OnInit {
 
   }
 
-
-
   addAviso() {
     this.nav.navigateForward('/add-aviso/new');
   }
 
+  onSearchChange(event) {
+    this.filterValue = event.detail.value;
+  }
 }

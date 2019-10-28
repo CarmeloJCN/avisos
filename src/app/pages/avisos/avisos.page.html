@@ -5,10 +5,13 @@
     </ion-buttons>
     <ion-title>Avisos</ion-title>
   </ion-toolbar>
+  <ion-searchbar placeholder="Buscar..." inputmode="text" type="text" (ionChange)="onSearchChange($event)"
+    [debounce]="250"></ion-searchbar>
 </ion-header>
 
 <ion-content>
-  <ion-item-sliding #sliding *ngFor="let item of datos.avisos">
+  <ion-item-sliding #sliding
+    *ngFor="let item of datos.avisos | filter: filterValue:['cliente.nombre', 'cliente.direccion', 'numAviso']">
     <ion-item-options side="end">
       <ion-item-option color="danger">
         <ion-icon name="trash" slot="icon-only"></ion-icon>
@@ -18,9 +21,18 @@
     <ion-item detail>
       <ion-grid>
         <ion-row scrollX="true">
-          <ion-col>{{ item.cliente.nombre }}</ion-col>
-          <ion-col>{{ item.fechaCita | date: 'dd/MM HH:mm' }}</ion-col>
-          <ion-col>{{ item.cliente.direccion }}</ion-col>
+          <ion-col>
+            <div>
+              <div class="nombre">{{ item.cliente.nombre }}</div>
+              <div class="direccion">{{ item.cliente.direccion }}</div>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              <div>{{ item.fechaCita | date: 'dd/MM HH:mm' }}</div>
+              <div>{{ item.numAviso }}</div>
+            </div>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-item>

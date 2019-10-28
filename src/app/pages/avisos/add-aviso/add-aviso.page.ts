@@ -1,3 +1,4 @@
+import { AVISOS_CONSTANTS } from './../../../app.constants';
 import { DatosService } from '../../../services/datos.service';
 import { NavController, ToastController } from '@ionic/angular';
 import { FirebaseService } from './../../../services/firebase.service';
@@ -17,6 +18,7 @@ export class AddAvisoPage implements OnInit {
   avisoID: string;
   minDate: string;
   maxDate: string;
+  numAviso: number;
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +32,8 @@ export class AddAvisoPage implements OnInit {
   ngOnInit() {
     this.setMinMaxDate();
     this.avisoForm = this.fb.group({
-      clienteID: ['', Validators.required],
+      cliente: ['', Validators.required],
+      numAviso: [this.setNumAviso()],
       descripcionAviso: ['', Validators.required],
       intervencion: [''],
       fechaEntrada: [''],
@@ -44,7 +47,19 @@ export class AddAvisoPage implements OnInit {
     this.avisoForm.get('fechaEntrada').setValue(new Date().toISOString());
   }
 
-  setTecnicoID() {
+  private setNumAviso() {
+    if (localStorage.getItem('num')) {
+      this.numAviso = Number.parseInt(localStorage.getItem('num'), 10) + 1;
+    } else {
+      this.numAviso = 1;
+    }
+    const str = '' + this.numAviso;
+    const pad = '0000';
+    return AVISOS_CONSTANTS.ENCABEZADO_AVISO + pad.substring(0, pad.length - str.length) + str;
+
+  }
+
+  private setTecnicoID() {
     if (this.datos.usuarioID) {
       this.avisoForm.get('tecnicoID').setValue(this.datos.usuarioID);
     } else {
@@ -54,7 +69,7 @@ export class AddAvisoPage implements OnInit {
     }
   }
 
-  setMinMaxDate() {
+  private setMinMaxDate() {
     const min = new Date();
     this.minDate = this.datePipe.transform(min, 'yyyy-MM-dd');
     const max = new Date().setDate(min.getDate() + 365);
@@ -68,14 +83,10 @@ export class AddAvisoPage implements OnInit {
   aceptar() {
     if (this.avisoForm.invalid) { return; }
     this.fBase.addAviso(this.avisoForm.value).then(data => {
+      localStorage.setItem('num', this.numAviso.toString());
       this.presentToast();
       this.nav.back();
     });
-  }
-
-  elegirCliente(event) {
-    this.avisoForm.get('clienteID').setValue(event.value.id);
-
   }
 
   async presentToast() {
