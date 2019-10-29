@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content>
-  <form #form="ngForm">
+  <form [formGroup]="loginForm">
     <ion-grid fixed>
       <ion-row color="primary" class="ion-justify-content-center">
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
@@ -16,40 +16,37 @@
           </div>
           <div class="ion-padding">
             <ion-item>
-              <ion-input name="email" type="email" [placeholder]="'AVISOS.COMUN.PLACE_EMAIL' | translate"
-                [(ngModel)]="usuario.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required></ion-input>
+              <ion-input formControlName="email" name="email" type="email"
+                [placeholder]="'AVISOS.COMUN.PLACE_EMAIL' | translate"></ion-input>
             </ion-item>
             <div class="text-danger">
-              <small
-                *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('pattern')">
+              <small *ngIf="loginForm.touched && loginForm.controls['email'].hasError('pattern')">
                 {{ 'AVISOS.ERRORES.FORMATO_EMAIL' | translate }}
               </small>
-              <small
-                *ngIf="form.touched && form.controls['email'].touched && form.controls['email'].hasError('required')">
+              <small *ngIf="loginForm.touched && loginForm.controls['email'].hasError('required')">
                 {{ 'AVISOS.ERRORES.OBLIGATORIO' | translate }}
               </small>
             </div>
             <ion-item>
-              <ion-input name="password" type="password" [placeholder]="'AVISOS.COMUN.PLACE_PASS' | translate"
-                [(ngModel)]="usuario.password" required minlength="6"></ion-input>
+              <ion-input formControlName="password" name="password" type="password"
+                [placeholder]="'AVISOS.COMUN.PLACE_PASS' | translate">
+              </ion-input>
             </ion-item>
             <div class="text-danger">
-              <small
-                *ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('minlength')">
+              <small *ngIf="loginForm.touched  && loginForm.controls['password'].hasError('minlength')">
                 {{ 'AVISOS.ERRORES.PASS_MIN_LENGTH' | translate }}
               </small>
-              <small
-                *ngIf="form.touched && form.controls['password'].touched && form.controls['password'].hasError('required')">
+              <small *ngIf="loginForm.touched && loginForm.controls['password'].hasError('required')">
                 {{ 'AVISOS.ERRORES.OBLIGATORIO' | translate }}
               </small>
             </div>
             <ion-item>
-              <ion-checkbox slot="start" [(ngModel)]="recordar" name="recordar"></ion-checkbox>
+              <ion-checkbox slot="start" formControlName="recordar" name="recordar"></ion-checkbox>
               <ion-label>{{ 'AVISOS.LOGIN.RECORDAR' | translate }}</ion-label>
             </ion-item>
           </div>
           <div class="ion-padding ion-text-center">
-            <ion-button color="primary" expand="block" class="ion-no-margin" (click)="login(form)">
+            <ion-button color="primary" expand="block" class="ion-no-margin" (click)="login()">
               {{ 'AVISOS.COMUN.ACEPTAR' | translate }}</ion-button>
           </div>
         </ion-list>

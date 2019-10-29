@@ -1,5 +1,5 @@
 import { TranslateService } from '@ngx-translate/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { UsuarioModel } from './../../models/usuario.model';
 import { Component, OnInit } from '@angular/core';
@@ -14,8 +14,9 @@ import { LoadingController, AlertController, NavController, MenuController } fro
 export class LoginPage implements OnInit {
 
   usuario: UsuarioModel;
-  recordar = false;
+  get recordar() { return this.loginForm.get('recordar'); }
   loading: any;
+  loginForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -23,25 +24,33 @@ export class LoginPage implements OnInit {
     public loadingController: LoadingController,
     public alertController: AlertController,
     private menu: MenuController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      recordar: ['']
+    });
     this.usuario = new UsuarioModel();
     if (localStorage.getItem('email')) {
-      this.usuario.email = localStorage.getItem('email');
-      this.recordar = true;
+      this.loginForm.get('email').setValue(localStorage.getItem('email'));
+      this.recordar.setValue(true);
     }
   }
 
-  login(form: NgForm) {
-    if (form.invalid) {
+  login() {
+    this.loginForm.markAsTouched();
+    if (this.loginForm.invalid) {
       return;
     }
+    this.usuario = this.loginForm.value;
     this.presentLoading();
     this.authService.login(this.usuario).then(resp => {
       this.loading.dismiss();
-      if (this.recordar) {
+      if (this.recordar.value) {
         localStorage.setItem('email', this.usuario.email);
       } else {
         localStorage.removeItem('email');
