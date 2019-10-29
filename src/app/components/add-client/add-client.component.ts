@@ -32,7 +32,7 @@ export class AddClientComponent implements OnInit {
       telefono: this.fb.array([
         this.fb.control('', Validators.required)
       ]),
-      email: ['']
+      email: ['', Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]
     });
     this.router.params.subscribe(data => {
       if (data.id === 'new') { return; }
@@ -55,7 +55,7 @@ export class AddClientComponent implements OnInit {
 
   addTelefono(cantidad: number) {
     for (let i = 0; i < cantidad; i++) {
-      this.telefonos.push(new FormControl(''));
+      this.telefonos.push(new FormControl('', Validators.required));
     }
   }
 
@@ -76,6 +76,7 @@ export class AddClientComponent implements OnInit {
   }
 
   aceptar() {
+    this.form.markAllAsTouched();
     if (this.form.invalid) { return; }
     if (this.clienteID === '') {
       this.fbase.addCliente(this.form.value).then(() => {

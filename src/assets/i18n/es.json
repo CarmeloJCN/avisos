@@ -33,12 +33,15 @@
   "AVISOS.CLIENTES.TELEFONO": "Teléfono {{num}}",
   "AVISOS.CLIENTES.ALTA_MSG": "Cliente dado de alta correctamente.",
   "AVISOS.CLIENTES.ACTU_MSG": "Cliente actualizado correctamente.",
-  "AVISOS.ERRORES.FORMATO_EMAIL": "Debes de introducir tu email correctamente.",
+  "AVISOS.ERRORES.FORMATO_EMAIL": "Debes de introducir el email correctamente.",
+  "AVISOS.ERRORES.FORMATO_CIF_NIF": "El formato no es correcto.",
   "AVISOS.ERRORES.HEADER": "Error",
   "AVISOS.ERRORES.OBLIGATORIO": "Campo obligatorio.",
   "AVISOS.ERRORES.PASS_MIN_LENGTH": "La contraseña debe de ser más de 5 letras.",
   "AVISOS.ERRORES.WRONG_PASS": "Contraseña incorrecta.",
   "AVISOS.ERRORES.WRONG_USER": "Usuario no encontrado.",
   "AVISOS.ERRORES.GENERIC": "Ha ocurrido algún problema.",
-  "AVISOS.ERRORES.TOO_MANY_REQUEST": "Demasiados intentos, prueba de nuevo más tarde."
+  "AVISOS.ERRORES.TOO_MANY_REQUEST": "Demasiados intentos, prueba de nuevo más tarde.",
+  "AVISOS.ERRORES.NO_DESCRIPTION": "Debes de rellenar que hay que hacer.",
+  "AVISOS.ERRORES.NO_CLIENTE": "Es obligatorio seleccionar un cliente."
 }

@@ -87,6 +87,7 @@ export class AddAvisoPage implements OnInit {
   }
 
   aceptar() {
+    this.avisoForm.markAllAsTouched();
     if (this.avisoForm.invalid) { return; }
     this.fBase.addAviso(this.avisoForm.value).then(data => {
       this.presentToast();
@@ -104,7 +105,7 @@ export class AddAvisoPage implements OnInit {
     toast.present();
   }
 
-  addClient(event) {
+  addClient() {
     this.select.showAddItemTemplate();
 
   }

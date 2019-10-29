@@ -3,4 +3,16 @@
     min-width  : 90px;
     font-weight: bold;
   }
+
+  .ion-justify-content-evenly {
+    margin-top: auto;
+  }
+
+  footer {
+    position      : absolute;
+    bottom        : 0;
+    width         : 100%;
+    padding-bottom: 50px;
+  }
+
 }

@@ -34,11 +34,14 @@
   "AVISOS.CLIENTES.ALTA_MSG": "Customer successfully registered.",
   "AVISOS.CLIENTES.ACTU_MSG": "Customer updated successfully.",
   "AVISOS.ERRORES.FORMATO_EMAIL": "You must enter your email correctly.",
+  "AVISOS.ERRORES.FORMATO_CIF_NIF": "Wrong format.",
   "AVISOS.ERRORES.HEADER": "Error",
   "AVISOS.ERRORES.OBLIGATORIO": "Obligatory field.",
   "AVISOS.ERRORES.PASS_MIN_LENGTH": "The password must be more than 5 letters.",
   "AVISOS.ERRORES.WRONG_PASS": "Incorrect password.",
   "AVISOS.ERRORES.WRONG_USER": "User not found.",
   "AVISOS.ERRORES.GENERIC": "Some problem has occurred.",
-  "AVISOS.ERRORES.TOO_MANY_REQUEST": "Too many attempts, try again later."
+  "AVISOS.ERRORES.TOO_MANY_REQUEST": "Too many attempts, try again later.",
+  "AVISOS.ERRORES.NO_DESCRIPTION": "You must fill in what needs to be done.",
+  "AVISOS.ERRORES.NO_CLIENTE": "It is mandatory to select a customer."
 }

@@ -29,9 +29,15 @@
             </ng-template>
           </ionic-selectable>
         </ion-item>
+        <div class="text-danger">
+          <small *ngIf="avisoForm.controls['cliente'].touched && avisoForm.controls['cliente'].hasError('required')">
+            {{ 'AVISOS.ERRORES.NO_CLIENTE' | translate }}
+          </small>
+        </div>
         <ion-item detail>
           <ion-label>{{ 'AVISOS.AVISO.FECHA_CITA' | translate }}:</ion-label>
-          <ion-datetime formControlName="fechaCita" [min]="minDate" [max]="maxDate" display-format="DD.MM.YYYY HH:mm">
+          <ion-datetime formControlName="fechaCita" [min]="minDate" [max]="maxDate" display-format="DD.MM.YYYY HH:mm"
+            [doneText]="'AVISOS.COMUN.ACEPTAR' | translate" [cancelText]="'AVISOS.COMUN.CANCELAR' | translate">
           </ion-datetime>
         </ion-item>
         <ion-item>
@@ -40,13 +46,21 @@
             <ion-textarea formControlName="descripcionAviso"></ion-textarea>
           </div>
         </ion-item>
-      </div>
-      <div class="ion-justify-content-evenly" style="display: flex">
-        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="cancelar()">
-          {{ 'AVISOS.COMUN.CANCELAR' | translate }}</ion-button>
-        <ion-button color="primary" expand="block" class="ion-no-margin" (click)="aceptar()">
-          {{ 'AVISOS.COMUN.ACEPTAR' | translate }}</ion-button>
+        <div class="text-danger">
+          <small
+            *ngIf="avisoForm.controls['descripcionAviso'].touched && avisoForm.controls['descripcionAviso'].hasError('required')">
+            {{ 'AVISOS.ERRORES.NO_DESCRIPTION' | translate }}
+          </small>
+        </div>
       </div>
     </ion-list>
   </form>
+  <footer>
+    <div class="ion-justify-content-evenly" style="display: flex">
+      <ion-button color="primary" expand="block" class="ion-no-margin" (click)="cancelar()">
+        {{ 'AVISOS.COMUN.CANCELAR' | translate }}</ion-button>
+      <ion-button color="primary" expand="block" class="ion-no-margin" (click)="aceptar()">
+        {{ 'AVISOS.COMUN.ACEPTAR' | translate }}</ion-button>
+    </div>
+  </footer>
 </ion-content>
