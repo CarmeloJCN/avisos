@@ -47,6 +47,10 @@ export class FirebaseService {
     this.firestore.doc('clientes/' + clienteID).delete();
   }
 
+  borrarAviso(avisoID: string) {
+    this.firestore.doc('avisos/' + avisoID).delete();
+  }
+
   leerTecnico(usuarioUID: string) {
     return this.firestore.collection('usuarios', ref => ref.where('uid', '==', usuarioUID))
       .snapshotChanges().pipe(take(1));

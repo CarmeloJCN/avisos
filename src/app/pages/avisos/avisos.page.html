@@ -10,36 +10,40 @@
 </ion-header>
 
 <ion-content>
-  <ion-item-sliding #sliding
-    *ngFor="let item of datos.avisos | filter: filterValue:['cliente.nombre', 'cliente.direccion', 'numAviso']">
-    <ion-item-options side="end">
-      <ion-item-option color="danger">
-        <ion-icon name="trash" slot="icon-only"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
+  <ion-list>
 
-    <ion-item detail>
-      <ion-grid>
-        <ion-row scrollX="true">
-          <ion-col>
-            <div>
-              <div class="nombre">{{ item.cliente.nombre }}</div>
-              <div class="direccion">{{ item.cliente.direccion }}</div>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div>
-              <div>{{ item.fechaCita | date: 'dd/MM HH:mm' }}</div>
-              <div>{{ item.numAviso }}</div>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-  </ion-item-sliding>
+    <ion-item-sliding #sliding
+      *ngFor="let item of datos.avisos | filter: filterValue:['cliente.nombre', 'cliente.direccion', 'numAviso']">
+      <ion-item-options side="end" (click)="deleteAviso(item.id)">
+        <ion-item-option color="danger">
+          <ion-icon name="trash" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item detail>
+        <ion-grid>
+          <ion-row scrollX="true" (click)="goDetalle(item)">
+            <ion-col>
+              <div>
+                <div class="nombre">{{ item.cliente.nombre }}</div>
+                <div class="direccion">{{ item.cliente.direccion }}</div>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <div>{{ item.fechaCita | date: 'dd/MM HH:mm' }}</div>
+                <div>{{ item.numAviso }}</div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addAviso()">
     <ion-fab-button color="primary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 </ion-content>

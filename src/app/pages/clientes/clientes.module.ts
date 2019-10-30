@@ -1,6 +1,5 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PipesModule } from './../../pipes/pipes.module';
-import { FilterPipe } from '../../pipes/filter.pipe';
 import { ClientesComponent } from './clientes.component';
 import { RouterModule, Routes } from '@angular/router';
 import { IonicModule } from '@ionic/angular';

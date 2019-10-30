@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content scroll-y="false">
   <form [formGroup]="avisoForm">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <div class="ion-text-center">
@@ -23,7 +23,7 @@
           <ionic-selectable #select formControlName="cliente" [items]="datos.clientes" itemValueField="id"
             itemTextField="nombre" [canSearch]="true" [addButtonText]="'AVISOS.CLIENTES.NEW_CLIENT' | translate"
             [closeButtonText]="'AVISOS.COMUN.CERRAR' | translate"
-            [searchPlaceholder]="'AVISOS.COMUN.BUSCAR' | translate" canAddItem="true" (onAddItem)="addClient($event)">
+            [searchPlaceholder]="'AVISOS.COMUN.BUSCAR' | translate" canAddItem="true" (onAddItem)="addClient()">
             <ng-template ionicSelectableAddItemTemplate>
               <app-add-client (cerrar)="cerrarAddClient()"></app-add-client>
             </ng-template>

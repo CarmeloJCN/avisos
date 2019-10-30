@@ -1,4 +1,4 @@
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { FirebaseService } from './../../services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,13 +15,15 @@ export class AddClientComponent implements OnInit {
   form: FormGroup;
   @Output() cerrar = new EventEmitter<any>();
   clienteID = '';
+  loading: any;
 
   constructor(
     private translate: TranslateService,
     private fb: FormBuilder,
     private router: ActivatedRoute,
     private fbase: FirebaseService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -78,14 +80,15 @@ export class AddClientComponent implements OnInit {
   aceptar() {
     this.form.markAllAsTouched();
     if (this.form.invalid) { return; }
+    this.presentLoading();
     if (this.clienteID === '') {
       this.fbase.addCliente(this.form.value).then(() => {
         this.presentToast(this.translate.instant('AVISOS.CLIENTES.ALTA_MSG'));
-      });
+      }).finally(() => { this.loading.dismiss(); });
     } else {
       this.fbase.actualizarCliente(this.clienteID, this.form.value).then(() => {
         this.presentToast(this.translate.instant('AVISOS.CLIENTES.ACTU_MSG'));
-      });
+      }).finally(() => { this.loading.dismiss(); });
     }
     this.cerrar.emit();
   }
@@ -102,6 +105,13 @@ export class AddClientComponent implements OnInit {
       translucent: true
     });
     toast.present();
+  }
+
+  async presentLoading() {
+    this.loading = this.loadingController.create({
+      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG')
+    });
+    await this.loading.present();
   }
 
 }

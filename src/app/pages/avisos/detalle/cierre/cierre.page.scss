@@ -1,0 +1,16 @@
+:host {
+
+  .rectangle {
+    margin: 10px;
+    border: 1px inset black;
+    width : 95%;
+  }
+
+  ion-textarea {
+
+    padding-top: 0px;
+    border     : 1px inset black;
+    height     : 80px;
+
+  }
+}

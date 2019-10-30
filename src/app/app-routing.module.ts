@@ -33,7 +33,9 @@ const routes: Routes = [
     path: 'add-aviso/:id',
     loadChildren: './pages/avisos/add-aviso/add-aviso.module#AddAvisoPageModule',
     canActivate: [AuthGuard]
-  }
+  },
+  { path: 'detalle', loadChildren: './pages/avisos/detalle/detalle.module#DetallePageModule' }
+
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { AVISOS_CONSTANTS } from './../../../app.constants';
 import { DatosService } from '../../../services/datos.service';
-import { NavController, ToastController } from '@ionic/angular';
+import { NavController, ToastController, LoadingController } from '@ionic/angular';
 import { FirebaseService } from './../../../services/firebase.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -20,6 +20,7 @@ export class AddAvisoPage implements OnInit {
   avisoID: string;
   minDate: string;
   maxDate: string;
+  loading: any;
   @ViewChild('select', { static: true }) select: IonicSelectableComponent;
 
   constructor(
@@ -29,7 +30,8 @@ export class AddAvisoPage implements OnInit {
     public datos: DatosService,
     private datePipe: DatePipe,
     private toastController: ToastController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -89,10 +91,11 @@ export class AddAvisoPage implements OnInit {
   aceptar() {
     this.avisoForm.markAllAsTouched();
     if (this.avisoForm.invalid) { return; }
+    this.presentLoading();
     this.fBase.addAviso(this.avisoForm.value).then(data => {
       this.presentToast();
       this.nav.back();
-    });
+    }).finally(() => { this.loading.dismiss(); });
   }
 
   async presentToast() {
@@ -103,6 +106,13 @@ export class AddAvisoPage implements OnInit {
       translucent: true
     });
     toast.present();
+  }
+
+  async presentLoading() {
+    this.loading = this.loadingController.create({
+      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG')
+    });
+    await this.loading.present();
   }
 
   addClient() {

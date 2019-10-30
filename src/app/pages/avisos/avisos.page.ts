@@ -1,6 +1,9 @@
+import { FirebaseService } from './../../services/firebase.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AvisoModel } from './../../models/aviso.model';
 import { DatosService } from './../../services/datos.service';
-import { NavController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { NavController, AlertController, IonList } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-avisos',
@@ -10,10 +13,15 @@ import { Component, OnInit } from '@angular/core';
 export class AvisosPage implements OnInit {
 
   filterValue: string;
+  avisoID: string;
+  @ViewChild(IonList, { static: true }) lista: IonList;
 
   constructor(
     private nav: NavController,
-    public datos: DatosService
+    private alertController: AlertController,
+    public datos: DatosService,
+    private translate: TranslateService,
+    private fb: FirebaseService
   ) { }
 
   ngOnInit() {
@@ -26,5 +34,40 @@ export class AvisosPage implements OnInit {
 
   onSearchChange(event) {
     this.filterValue = event.detail.value;
+  }
+
+  goDetalle(aviso: AvisoModel) {
+    this.datos.avisoElegido = aviso;
+    this.nav.navigateForward('detalle');
+  }
+
+  deleteAviso(id: string) {
+    this.avisoID = id;
+    this.presentAlert();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      animated: true,
+      backdropDismiss: false,
+      message: this.translate.instant('AVISOS.COMUN.BORRAR_MSG'),
+      buttons: [
+        {
+          text: this.translate.instant('AVISOS.COMUN.NO'),
+          role: 'cancel',
+          handler: data => {
+            this.lista.closeSlidingItems();
+          }
+        },
+        {
+          text: this.translate.instant('AVISOS.COMUN.SI'),
+          handler: data => {
+            this.fb.borrarAviso(this.avisoID);
+            this.lista.closeSlidingItems();
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }

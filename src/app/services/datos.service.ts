@@ -1,8 +1,8 @@
+import { AvisoModel } from './../models/aviso.model';
 import { takeUntil, tap } from 'rxjs/operators';
 import { FirebaseService } from './firebase.service';
 import { ClienteModel } from '../models/cliente.model';
 import { Injectable } from '@angular/core';
-import { AvisoModel } from '../models/aviso.model';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class DatosService {
   clientes: Array<ClienteModel>;
   usuarioID: string;
   avisos: Array<AvisoModel>;
+  avisoElegido: AvisoModel;
 
   constructor(
     private fb: FirebaseService,

@@ -44,7 +44,7 @@
       <div formArrayName="telefono">
         <ion-item *ngFor="let item of telefonos.controls; index as i">
           <ion-label>{{ getTelefonoLabel(i) }}</ion-label>
-          <ion-input clearInput [formControlName]="i" type="text"></ion-input>
+          <ion-input clearInput [formControlName]="i" type="number"></ion-input>
           <ion-button (click)="removeTelefono(i)" *ngIf="i > 0" color="danger">
             <ion-icon class="ion-text-center" name="remove"></ion-icon>
           </ion-button>

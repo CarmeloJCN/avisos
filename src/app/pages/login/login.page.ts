@@ -67,8 +67,7 @@ export class LoginPage implements OnInit {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
-      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG'),
-      duration: 2000
+      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG')
     });
     await this.loading.present();
   }
