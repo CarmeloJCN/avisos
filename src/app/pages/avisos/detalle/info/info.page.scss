@@ -1,9 +1,13 @@
 :host {
 
   .rectangle {
-    margin: 10px;
-    border: 1px inset black;
-    width : 95%;
+    margin   : 10px;
+    border   : 1px inset black;
+    max-width: 95%;
+
+    &.aviso {
+      min-height: 250px;
+    }
   }
 
   ion-label {
@@ -11,6 +15,9 @@
     margin-left: 5px;
   }
 
+  .desc {
+    margin-left: 5px;
 
+  }
 
 }

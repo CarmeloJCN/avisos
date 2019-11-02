@@ -16,6 +16,19 @@
     <ion-label>Datos intervención:</ion-label>
     <div class="rectangle">
       <ion-grid fixed>
+        <ion-row class="flex">
+          <ion-col size="4">
+            <ion-label>Precio:</ion-label>
+            <ion-input #precio formControlName="precio" clearInput type="number" inputmode="number">
+            </ion-input>
+          </ion-col>
+          <ion-col size=" 4">
+            <ion-label>Hora inicio:</ion-label>
+            <ion-datetime formControlName="inicioAviso" display-format="HH:mm"
+              [doneText]="'AVISOS.COMUN.ACEPTAR' | translate" [cancelText]="'AVISOS.COMUN.CANCELAR' | translate">
+            </ion-datetime>
+          </ion-col>
+        </ion-row>
         <ion-row>
           <ion-col size="4">
             <ion-label>Intervención</ion-label>
@@ -29,5 +42,29 @@
       </ion-grid>
     </div>
   </div>
-
+  <div class="clButton">
+    <ion-label>Firmar</ion-label>
+    <ion-button size="small" (click)="borrarFirma()">
+      Borrar Firma
+    </ion-button>
+  </div>
+  <div class="firma" [ngClass]="{'noDisplay': firmar}">
+    <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
+  </div>
+  <ion-item>
+    <ion-checkbox (click)="borrarFirma()" [(ngModel)]="firmar"></ion-checkbox>
+    <ion-label>El cliente no desea firmar</ion-label>
+  </ion-item>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div class="ion-justify-content-evenly" style="display: flex">
+      <ion-button (click)="cancelar()">
+        Cancelar
+      </ion-button>
+      <ion-button (click)="cerrarAviso()">
+        Confimar
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

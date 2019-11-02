@@ -9,6 +9,7 @@ export class AvisoModel {
   fechaEntrada: Date;
   fechaCita: Date;
   fechaFin: Date;
+  inicioAviso: Date;
   precio: number;
   tecnicoID: string;
   cerrado: boolean;

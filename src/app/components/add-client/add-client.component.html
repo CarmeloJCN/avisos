@@ -6,7 +6,7 @@
     <div class="ion-padding">
       <ion-item>
         <ion-label>{{ 'AVISOS.CLIENTES.NOMBRE' | translate }}</ion-label>
-        <ion-input clearInput formControlName="nombre" type="name"></ion-input>
+        <ion-input clearInput formControlName="nombre" inputmode="text" type="text" autocapitalize=words></ion-input>
       </ion-item>
       <div class="text-danger">
         <small *ngIf="form.controls['nombre'].touched && form.controls['nombre'].hasError('required')">
@@ -24,7 +24,8 @@
       </div>
       <ion-item>
         <ion-label>{{ 'AVISOS.CLIENTES.CIF_NIF' | translate }}</ion-label>
-        <ion-input clearInput formControlName="cifNif" type="text" placeholder="12345678X | X12345678"></ion-input>
+        <ion-input clearInput formControlName="cifNif" type="text" placeholder="12345678X | X12345678" maxlength="9">
+        </ion-input>
       </ion-item>
       <div class="text-danger">
         <small *ngIf="form.controls['cifNif'].touched && form.controls['cifNif'].hasError('pattern')">
@@ -44,7 +45,7 @@
       <div formArrayName="telefono">
         <ion-item *ngFor="let item of telefonos.controls; index as i">
           <ion-label>{{ getTelefonoLabel(i) }}</ion-label>
-          <ion-input clearInput [formControlName]="i" type="number"></ion-input>
+          <ion-input clearInput [formControlName]="i" inputmode="tel" type="number"></ion-input>
           <ion-button (click)="removeTelefono(i)" *ngIf="i > 0" color="danger">
             <ion-icon class="ion-text-center" name="remove"></ion-icon>
           </ion-button>

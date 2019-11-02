@@ -1,7 +1,9 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -20,8 +22,11 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule,
+    SignaturePadModule
   ],
-  declarations: [CierrePage]
+  declarations: [CierrePage],
+  providers: [DecimalPipe, TranslateService]
 })
 export class CierrePageModule { }

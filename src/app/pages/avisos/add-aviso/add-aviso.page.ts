@@ -44,6 +44,7 @@ export class AddAvisoPage implements OnInit {
       fechaEntrada: [''],
       fechaCita: [''],
       fechaFin: [''],
+      inicioAviso: [''],
       precio: [''],
       tecnicoID: ['', Validators.required],
       cerrado: false

@@ -53,6 +53,7 @@ export class DatosService {
             fechaEntrada: a.payload.doc.data().fechaEntrada,
             fechaFin: a.payload.doc.data().fechaFin || '',
             fechaCita: a.payload.doc.data().fechaCita || '',
+            inicioAviso: a.payload.doc.data().inicioAviso || '',
             precio: a.payload.doc.data().precio || '',
             tecnicoID: a.payload.doc.data().tecnicoID,
             cerrado: a.payload.doc.data().cerrado

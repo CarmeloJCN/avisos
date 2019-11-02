@@ -50,7 +50,7 @@
 
   <div>
     <ion-label>Datos aviso:</ion-label>
-    <ion-grid class="rectangle" fixed>
+    <ion-grid class="rectangle aviso" fixed>
       <ion-row>
         <ion-col size="4">
           <ion-label>Fecha entrada</ion-label>
@@ -69,7 +69,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col scroll-y="true">{{ aviso.descripcionAviso }}</ion-col>
+        <ion-col class="desc">{{ aviso.descripcionAviso }}</ion-col>
       </ion-row>
     </ion-grid>
   </div>

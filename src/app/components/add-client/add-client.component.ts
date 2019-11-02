@@ -30,7 +30,7 @@ export class AddClientComponent implements OnInit {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       direccion: ['', Validators.required],
-      cifNif: ['', [Validators.pattern('([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])'), this.validarCif]],
+      cifNif: ['', [Validators.pattern('([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])')]],
       telefono: this.fb.array([
         this.fb.control('', Validators.required)
       ]),
@@ -68,13 +68,6 @@ export class AddClientComponent implements OnInit {
   getTelefonoLabel(index: number) {
     const num = index + 1;
     return this.translate.instant('AVISOS.CLIENTES.TELEFONO', { num });
-  }
-
-  validarCif(control: FormControl): { [s: string]: boolean } {
-    if (control.value.length > 9) {
-      control.setValue(control.value.slice(0, 9));
-    }
-    return null;
   }
 
   aceptar() {

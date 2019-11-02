@@ -29,6 +29,7 @@
     "@ionic/angular": "^4.7.1",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "angular2-signaturepad": "^2.9.0",
     "core-js": "^2.5.4",
     "firebase": "^7.2.1",
     "ionic-selectable": "^4.4.1",

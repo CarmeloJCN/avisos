@@ -6,11 +6,52 @@
     width : 95%;
   }
 
-  ion-textarea {
-
+  ::ng-deep ion-textarea {
     padding-top: 0px;
     border     : 1px inset black;
-    height     : 80px;
+
+    textarea {
+      height: 90px;
+    }
+  }
+
+  .clButton {
+    padding        : 10px;
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    padding-top    : 0px;
+    ;
 
   }
+
+  ion-input {
+    border-bottom: 1px inset black;
+  }
+
+  ion-datetime {
+    padding-left : 0px;
+    border-bottom: 1px inset black;
+    text-align   : center;
+
+  }
+
+  .noDisplay {
+    display: none;
+  }
+
+  .flex {
+    justify-content: space-between;
+  }
+
+  ::ng-deep signature-pad {
+    canvas {
+      border: 1px inset black;
+    }
+  }
+
+  .firma {
+    text-align: center;
+  }
+
 }
