@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class DetallePage implements OnInit {
 
   constructor(
-    private datos: DatosService
+    public datos: DatosService
   ) { }
 
   ngOnInit() {

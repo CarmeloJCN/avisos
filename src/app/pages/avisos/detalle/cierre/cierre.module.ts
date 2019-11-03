@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { IonicModule } from '@ionic/angular';
-
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { CierrePage } from './cierre.page';
 
 const routes: Routes = [
@@ -24,7 +24,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     TranslateModule,
-    SignaturePadModule
+    SignaturePadModule,
+    AngularFireStorageModule
+
   ],
   declarations: [CierrePage],
   providers: [DecimalPipe, TranslateService]

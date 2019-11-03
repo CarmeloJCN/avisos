@@ -56,7 +56,8 @@ export class DatosService {
             inicioAviso: a.payload.doc.data().inicioAviso || '',
             precio: a.payload.doc.data().precio || '',
             tecnicoID: a.payload.doc.data().tecnicoID,
-            cerrado: a.payload.doc.data().cerrado
+            cerrado: a.payload.doc.data().cerrado,
+            pdf: a.payload.doc.data().pdf || ''
           };
         });
       });

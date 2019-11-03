@@ -12,50 +12,57 @@
     <h3>Aviso: {{ aviso.numAviso }}</h3>
   </div>
 
-  <div [formGroup]="cierreForm">
-    <ion-label>Datos intervención:</ion-label>
-    <div class="rectangle">
-      <ion-grid fixed>
-        <ion-row class="flex">
-          <ion-col size="4">
-            <ion-label>Precio:</ion-label>
-            <ion-input #precio formControlName="precio" clearInput type="number" inputmode="number">
-            </ion-input>
-          </ion-col>
-          <ion-col size=" 4">
-            <ion-label>Hora inicio:</ion-label>
-            <ion-datetime formControlName="inicioAviso" display-format="HH:mm"
-              [doneText]="'AVISOS.COMUN.ACEPTAR' | translate" [cancelText]="'AVISOS.COMUN.CANCELAR' | translate">
-            </ion-datetime>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="4">
-            <ion-label>Intervención</ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-textarea formControlName="intervencion"></ion-textarea>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+  <div class="wrap">
+    <div class="intervencion" [formGroup]="cierreForm">
+      <ion-label>Datos intervención:</ion-label>
+      <div class="rectangle">
+        <ion-grid fixed>
+          <ion-row class="flex">
+            <ion-col size="4">
+              <ion-label>Precio:</ion-label>
+              <ion-input #precio formControlName="precio" clearInput type="number" inputmode="number">
+              </ion-input>
+            </ion-col>
+            <ion-col size=" 4">
+              <ion-label>Hora inicio:</ion-label>
+              <ion-datetime formControlName="inicioAviso" display-format="HH:mm"
+                [doneText]="'AVISOS.COMUN.ACEPTAR' | translate" [cancelText]="'AVISOS.COMUN.CANCELAR' | translate">
+              </ion-datetime>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4">
+              <ion-label>Intervención</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-textarea formControlName="intervencion"></ion-textarea>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+    <div class="firma">
+      <div [ngClass]="{'noDisplay': firmar}">
+        <div class="clButton">
+          <ion-label>Firmar</ion-label>
+          <ion-button size="small" (click)="borrarFirma()">
+            Borrar Firma
+          </ion-button>
+        </div>
+        <div style="text-align: center">
+          <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
+        </div>
+      </div>
+      <ion-item>
+        <ion-checkbox (click)="borrarFirma()" [(ngModel)]="firmar"></ion-checkbox>
+        <ion-label>El cliente no desea firmar</ion-label>
+      </ion-item>
     </div>
   </div>
-  <div class="clButton">
-    <ion-label>Firmar</ion-label>
-    <ion-button size="small" (click)="borrarFirma()">
-      Borrar Firma
-    </ion-button>
-  </div>
-  <div class="firma" [ngClass]="{'noDisplay': firmar}">
-    <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
-  </div>
-  <ion-item>
-    <ion-checkbox (click)="borrarFirma()" [(ngModel)]="firmar"></ion-checkbox>
-    <ion-label>El cliente no desea firmar</ion-label>
-  </ion-item>
 </ion-content>
+
 <ion-footer>
   <ion-toolbar>
     <div class="ion-justify-content-evenly" style="display: flex">
@@ -68,3 +75,78 @@
     </div>
   </ion-toolbar>
 </ion-footer>
+
+
+<div style="display: none;">
+  <div #pdf id="pdf" class="pdf">
+
+    <div class="flex_space">
+      <div class="logo">
+        <img class="logo" [src]="logo" alt="logo">
+      </div>
+
+      <div class="cliente">
+        <div class="datos">
+          <div class="label">Nombre:</div>
+          <div>{{ aviso.cliente.nombre }}</div>
+        </div>
+        <div class="datos">
+          <div class="label">Direccion:</div>
+          <div>{{ aviso.cliente.direccion }}</div>
+        </div>
+        <div class="datos">
+          <div class="label">CIF/NIF:</div>
+          <div>{{ aviso.cliente.cifNif }}</div>
+        </div>
+        <div class="datos">
+          <div class="label">Correo:</div>
+          <div>{{ aviso.cliente.email }}</div>
+        </div>
+        <div class="datos">
+          <div class="label">Teléfonos:</div>
+          <div class="datos">
+            <div class="tlfno" *ngFor="let item of aviso.cliente.telefono">{{ item }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="separador"></div>
+
+    <div class="flex_space">
+      <div class="datos">
+        <div class="label">Fecha entrada:</div>
+        <div>{{ aviso.fechaEntrada | date: 'dd/MM HH:mm' }}</div>
+      </div>
+
+      <div class="datos">
+        <div class="label">Fecha Cierre:</div>
+        <div>{{ aviso.fechaFin | date: 'dd/MM HH:mm' }}</div>
+      </div>
+
+    </div>
+
+    <div class="rectangle">
+      <div class="label">Información aviso:</div>
+      <div>{{ aviso.descripcionAviso }}</div>
+    </div>
+
+    <div class="rectangle">
+      <div class="label">Información intervención:</div>
+      <div>{{ aviso.intervencion }}</div>
+    </div>
+
+    <div class="separador"></div>
+
+    <div class="flex_space">
+      <div class="datos">
+        <div class="label">Precio:</div>
+        <div>{{ aviso.precio | currency:'EUR' }}</div>
+      </div>
+      <div class="datos">
+        <div class="label">Firmado:</div>
+        <img *ngIf="firma" class="firmar" [src]="firma" alt="firma">
+        <div class="firmar" *ngIf="!firma">El cliente no deseo firmar</div>
+      </div>
+    </div>
+  </div>
+</div>

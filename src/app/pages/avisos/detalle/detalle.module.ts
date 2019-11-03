@@ -26,6 +26,11 @@ const routes: Routes = [
         canLoad: [NoAvisoGuard]
       },
       {
+        path: 'pdf',
+        loadChildren: './pdf/pdf.module#PdfPageModule',
+        canLoad: [NoAvisoGuard]
+      },
+      {
         path: '',
         redirectTo: '/detalle/info',
         pathMatch: 'full',

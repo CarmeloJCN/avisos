@@ -1,18 +1,26 @@
 :host {
 
   .rectangle {
-    margin: 10px;
     border: 1px inset black;
-    width : 95%;
+  }
+
+  .intervencion {
+    padding: 10px;
+    width  : 100%;
   }
 
   ::ng-deep ion-textarea {
-    padding-top: 0px;
-    border     : 1px inset black;
+    padding-left: 5px;
+    border      : 1px inset black;
 
     textarea {
       height: 90px;
     }
+  }
+
+  .wrap {
+    display  : flex;
+    flex-wrap: wrap;
   }
 
   .clButton {
@@ -36,10 +44,6 @@
 
   }
 
-  .noDisplay {
-    display: none;
-  }
-
   .flex {
     justify-content: space-between;
   }
@@ -51,7 +55,62 @@
   }
 
   .firma {
-    text-align: center;
+    padding    : 10px;
+    padding-top: 0px;
+    width      : 100%;
+  }
+
+  .pdf {
+    width  : 845px;
+    height : 600px;
+    padding: 15px;
+
+    .logo {
+      width : 300px;
+      height: 200px;
+    }
+
+    .cliente {
+      border   : 1px solid black;
+      min-width: 350px;
+      height   : 175px;
+      padding  : 10px;
+
+    }
+
+    .separador {
+      border: 1px solid black;
+      margin: 10px;
+    }
+
+    .flex_space {
+      display        : flex;
+      justify-content: space-between;
+    }
+
+    .label {
+      font-weight : bold;
+      margin-right: 5px;
+    }
+
+    .datos {
+      display: flex;
+    }
+
+    .tlfno {
+      margin-right: 10px;
+    }
+
+    .rectangle {
+      border       : 1px inset black;
+      padding      : 10px;
+      margin-bottom: 10px;
+    }
+
+    .firmar {
+      width : 350px;
+      height: 120px;
+    }
   }
 
 }

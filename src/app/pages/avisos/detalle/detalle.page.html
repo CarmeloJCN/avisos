@@ -6,9 +6,14 @@
       <ion-label>Información</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="cierre">
+    <ion-tab-button tab="cierre" *ngIf="!datos.avisoElegido.cerrado">
       <ion-icon name="done-all"></ion-icon>
       <ion-label>Firmar y cerrar</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="pdf" *ngIf="datos.avisoElegido.cerrado">
+      <ion-icon name="done-all"></ion-icon>
+      <ion-label>PDF</ion-label>
     </ion-tab-button>
 
   </ion-tab-bar>

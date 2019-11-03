@@ -43,6 +43,10 @@ export class FirebaseService {
     return this.firestore.doc('clientes/' + clienteID).update(cliente);
   }
 
+  actualizarAviso(avisoID: string, aviso: AvisoModel) {
+    return this.firestore.doc('avisos/' + avisoID).update(aviso);
+  }
+
   borrarCliente(clienteID: string) {
     this.firestore.doc('clientes/' + clienteID).delete();
   }

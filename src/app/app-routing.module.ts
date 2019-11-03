@@ -35,7 +35,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'detalle', loadChildren: './pages/avisos/detalle/detalle.module#DetallePageModule' }
-
 ];
 
 @NgModule({
