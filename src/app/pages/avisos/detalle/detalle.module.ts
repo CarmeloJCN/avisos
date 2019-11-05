@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { NoAvisoGuard } from './../../../guards/no-aviso.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -45,7 +46,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    TranslateModule
   ],
   declarations: [DetallePage]
 })

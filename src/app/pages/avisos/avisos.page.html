@@ -14,7 +14,7 @@
 
     <ion-item-sliding #sliding
       *ngFor="let item of datos.avisos | filter: filterValue:['cliente.nombre', 'cliente.direccion', 'numAviso']">
-      <ion-item-options side="end" (click)="deleteAviso(item.id)">
+      <ion-item-options side="end" (click)="deleteAviso(item)">
         <ion-item-option color="danger">
           <ion-icon name="trash" slot="icon-only"></ion-icon>
         </ion-item-option>

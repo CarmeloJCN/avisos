@@ -1,3 +1,4 @@
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FirebaseService } from './../../services/firebase.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AvisoModel } from './../../models/aviso.model';
@@ -14,6 +15,7 @@ export class AvisosPage implements OnInit {
 
   filterValue: string;
   avisoID: string;
+  aviso: AvisoModel;
   @ViewChild(IonList, { static: true }) lista: IonList;
 
   constructor(
@@ -21,7 +23,8 @@ export class AvisosPage implements OnInit {
     private alertController: AlertController,
     public datos: DatosService,
     private translate: TranslateService,
-    private fb: FirebaseService
+    private fb: FirebaseService,
+    private storage: AngularFireStorage
   ) { }
 
   ngOnInit() {
@@ -41,9 +44,18 @@ export class AvisosPage implements OnInit {
     this.nav.navigateForward('detalle');
   }
 
-  deleteAviso(id: string) {
-    this.avisoID = id;
+  deleteAviso(item: AvisoModel) {
+    this.avisoID = item.id;
+    this.aviso = item;
     this.presentAlert();
+  }
+
+  private borrarPDF() {
+    if (this.aviso.pdf) {
+      const filePath = `/pdfs/${this.aviso.numAviso}.pdf`;
+      const ref = this.storage.ref(filePath);
+      ref.delete().subscribe();
+    }
   }
 
   async presentAlert() {
@@ -63,6 +75,7 @@ export class AvisosPage implements OnInit {
           text: this.translate.instant('AVISOS.COMUN.SI'),
           handler: data => {
             this.fb.borrarAviso(this.avisoID);
+            this.borrarPDF();
             this.lista.closeSlidingItems();
           }
         }

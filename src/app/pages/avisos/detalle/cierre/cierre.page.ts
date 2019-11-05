@@ -1,5 +1,6 @@
+import { TranslateService } from '@ngx-translate/core';
 import { FirebaseService } from './../../../../services/firebase.service';
-import { NavController, MenuController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { DatosService } from './../../../../services/datos.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -24,6 +25,7 @@ export class CierrePage implements OnInit {
   logo: any;
   pdf: any;
   downloadURL: any;
+  loading: any;
   get aviso() {
     return this.cierreForm.value;
   }
@@ -42,9 +44,10 @@ export class CierrePage implements OnInit {
     private fb: FormBuilder,
     private num: DecimalPipe,
     private nav: NavController,
-    private menu: MenuController,
     private storage: AngularFireStorage,
-    private fBase: FirebaseService
+    private fBase: FirebaseService,
+    public loadingController: LoadingController,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -83,6 +86,7 @@ export class CierrePage implements OnInit {
 
   cerrarAviso() {
     if ((this.firma || this.firmar) && this.cierreForm.valid) {
+      this.presentLoading();
       this.cierreForm.patchValue({
         fechaFin: new Date().toISOString(),
         cerrado: true
@@ -101,10 +105,10 @@ export class CierrePage implements OnInit {
 
   public captureScreen() {
     const data = document.getElementById('pdf');
-    const options = { background: 'white', height: 600, width: 845 };
+    const options = { background: 'white', height: 842, width: 600 };
     domtoimage.toPng(data, options).then((dataUrl) => {
-      const doc = new jsPDF('l', 'mm', 'a5');
-      const imgHeight = 600 * 208 / 845;
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const imgHeight = 842 * 208 / 600;
       doc.addImage(dataUrl, 'PNG', 0, 0, 208, imgHeight);
       this.pdf = doc.output('blob');
       this.guardarPdf();
@@ -121,10 +125,22 @@ export class CierrePage implements OnInit {
           .subscribe(data => {
             this.cierreForm.get('pdf').setValue(data);
             this.fBase.actualizarAviso(this.aviso.id, this.aviso);
+            this.nav.navigateBack('/avisos');
+            if (this.loading) {
+              this.loading.dismiss();
+            }
           });
       })
     )
       .subscribe();
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG'),
+      duration: 2000
+    });
+    await this.loading.present();
   }
 
 }

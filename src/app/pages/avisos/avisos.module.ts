@@ -1,3 +1,4 @@
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PipesModule } from './../../pipes/pipes.module';
 import { NgModule } from '@angular/core';
@@ -23,7 +24,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     PipesModule,
-    TranslateModule
+    TranslateModule,
+    AngularFireStorageModule
   ],
   declarations: [AvisosPage],
   providers: [TranslateService]

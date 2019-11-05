@@ -3,17 +3,17 @@
   <ion-tab-bar slot="bottom" color="primary">
     <ion-tab-button tab="info">
       <ion-icon name="clipboard"></ion-icon>
-      <ion-label>Información</ion-label>
+      <ion-label>{{ 'AVISOS.AVISO.DETALLE.INFO' | translate }}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="cierre" *ngIf="!datos.avisoElegido.cerrado">
       <ion-icon name="done-all"></ion-icon>
-      <ion-label>Firmar y cerrar</ion-label>
+      <ion-label>{{ 'AVISOS.AVISO.DETALLE.FIRMAR' | translate }}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="pdf" *ngIf="datos.avisoElegido.cerrado">
       <ion-icon name="done-all"></ion-icon>
-      <ion-label>PDF</ion-label>
+      <ion-label>{{ 'AVISOS.AVISO.DETALLE.PDF' | translate }}</ion-label>
     </ion-tab-button>
 
   </ion-tab-bar>

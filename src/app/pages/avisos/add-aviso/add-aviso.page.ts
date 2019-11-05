@@ -96,7 +96,11 @@ export class AddAvisoPage implements OnInit {
     this.fBase.addAviso(this.avisoForm.value).then(data => {
       this.presentToast();
       this.nav.back();
-    }).finally(() => { this.loading.dismiss(); });
+    }).finally(() => {
+      if (this.loading) {
+        this.loading.dismiss();
+      }
+    });
   }
 
   async presentToast() {
@@ -110,8 +114,9 @@ export class AddAvisoPage implements OnInit {
   }
 
   async presentLoading() {
-    this.loading = this.loadingController.create({
-      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG')
+    this.loading = await this.loadingController.create({
+      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG'),
+      duration: 2000
     });
     await this.loading.present();
   }

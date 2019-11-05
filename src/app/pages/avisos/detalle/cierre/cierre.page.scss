@@ -18,6 +18,10 @@
     }
   }
 
+  .noDisplay {
+    display: none;
+  }
+
   .wrap {
     display  : flex;
     flex-wrap: wrap;
@@ -61,8 +65,8 @@
   }
 
   .pdf {
-    width  : 845px;
-    height : 600px;
+    width  : 600px;
+    height : 842px;
     padding: 15px;
 
     .logo {
@@ -71,10 +75,10 @@
     }
 
     .cliente {
-      border   : 1px solid black;
-      min-width: 350px;
-      height   : 175px;
-      padding  : 10px;
+      border : 1px solid black;
+      width  : 350px;
+      height : 175px;
+      padding: 10px;
 
     }
 

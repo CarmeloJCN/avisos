@@ -3,28 +3,28 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/" text=''></ion-back-button>
     </ion-buttons>
-    <ion-title>Información del aviso</ion-title>
+    <ion-title>{{ 'AVISOS.AVISO.DETALLE.CIERRE.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-text-center">
-    <h3>Aviso: {{ aviso.numAviso }}</h3>
+    <h3>{{ 'AVISOS.AVISO.DETALLE.INFO.AVISO' | translate }} {{ aviso.numAviso }}</h3>
   </div>
 
   <div class="wrap">
     <div class="intervencion" [formGroup]="cierreForm">
-      <ion-label>Datos intervención:</ion-label>
+      <ion-label>{{ 'AVISOS.AVISO.DETALLE.CIERRE.DATOS_INTER' | translate }}:</ion-label>
       <div class="rectangle">
         <ion-grid fixed>
           <ion-row class="flex">
             <ion-col size="4">
-              <ion-label>Precio:</ion-label>
+              <ion-label>{{ 'AVISOS.AVISO.DETALLE.CIERRE.PRECIO' | translate }}:</ion-label>
               <ion-input #precio formControlName="precio" clearInput type="number" inputmode="number">
               </ion-input>
             </ion-col>
             <ion-col size=" 4">
-              <ion-label>Hora inicio:</ion-label>
+              <ion-label>{{ 'AVISOS.AVISO.DETALLE.CIERRE.HORA_INICIO' | translate }}:</ion-label>
               <ion-datetime formControlName="inicioAviso" display-format="HH:mm"
                 [doneText]="'AVISOS.COMUN.ACEPTAR' | translate" [cancelText]="'AVISOS.COMUN.CANCELAR' | translate">
               </ion-datetime>
@@ -32,7 +32,7 @@
           </ion-row>
           <ion-row>
             <ion-col size="4">
-              <ion-label>Intervención</ion-label>
+              <ion-label>{{ 'AVISOS.AVISO.DETALLE.CIERRE.INTERVENCION' | translate }}</ion-label>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -43,22 +43,22 @@
         </ion-grid>
       </div>
     </div>
+    <ion-item>
+      <ion-checkbox (click)="borrarFirma()" [(ngModel)]="firmar"></ion-checkbox>
+      <ion-label>{{ 'AVISOS.AVISO.DETALLE.CIERRE.NO_FIRMA' | translate }}</ion-label>
+    </ion-item>
     <div class="firma">
       <div [ngClass]="{'noDisplay': firmar}">
         <div class="clButton">
-          <ion-label>Firmar</ion-label>
+          <ion-label>{{ 'AVISOS.AVISO.DETALLE.CIERRE.FIRMAR' | translate }}</ion-label>
           <ion-button size="small" (click)="borrarFirma()">
-            Borrar Firma
+            {{ 'AVISOS.AVISO.DETALLE.CIERRE.BORRAR_FIRMA' | translate }}
           </ion-button>
         </div>
         <div style="text-align: center">
           <signature-pad [options]="signaturePadOptions" (onEndEvent)="drawComplete()"></signature-pad>
         </div>
       </div>
-      <ion-item>
-        <ion-checkbox (click)="borrarFirma()" [(ngModel)]="firmar"></ion-checkbox>
-        <ion-label>El cliente no desea firmar</ion-label>
-      </ion-item>
     </div>
   </div>
 </ion-content>
@@ -67,10 +67,10 @@
   <ion-toolbar>
     <div class="ion-justify-content-evenly" style="display: flex">
       <ion-button (click)="cancelar()">
-        Cancelar
+        {{ 'AVISOS.COMUN.CANCELAR' | translate }}
       </ion-button>
       <ion-button (click)="cerrarAviso()">
-        Confimar
+        {{ 'AVISOS.COMUN.ACEPTAR' | translate }}
       </ion-button>
     </div>
   </ion-toolbar>
@@ -87,23 +87,23 @@
 
       <div class="cliente">
         <div class="datos">
-          <div class="label">Nombre:</div>
+          <div class="label">{{ 'AVISOS.CLIENTES.NOMBRE' | translate }}:</div>
           <div>{{ aviso.cliente.nombre }}</div>
         </div>
         <div class="datos">
-          <div class="label">Direccion:</div>
+          <div class="label">{{ 'AVISOS.CLIENTES.DIRECCION' | translate }}:</div>
           <div>{{ aviso.cliente.direccion }}</div>
         </div>
         <div class="datos">
-          <div class="label">CIF/NIF:</div>
+          <div class="label">{{ 'AVISOS.CLIENTES.CIF_NIF' | translate }}:</div>
           <div>{{ aviso.cliente.cifNif }}</div>
         </div>
         <div class="datos">
-          <div class="label">Correo:</div>
+          <div class="label">{{ 'AVISOS.CLIENTES.EMAIL' | translate }}:</div>
           <div>{{ aviso.cliente.email }}</div>
         </div>
         <div class="datos">
-          <div class="label">Teléfonos:</div>
+          <div class="label">{{ 'AVISOS.AVISO.DETALLE.INFO.TLFNO' | translate }}:</div>
           <div class="datos">
             <div class="tlfno" *ngFor="let item of aviso.cliente.telefono">{{ item }}</div>
           </div>
@@ -114,24 +114,31 @@
 
     <div class="flex_space">
       <div class="datos">
-        <div class="label">Fecha entrada:</div>
+        <div class="label">{{ 'AVISOS.AVISO.DETALLE.INFO.FECHA_ENTRADA' | translate }}:</div>
         <div>{{ aviso.fechaEntrada | date: 'dd/MM HH:mm' }}</div>
       </div>
 
       <div class="datos">
-        <div class="label">Fecha Cierre:</div>
+        <div class="label">{{ 'AVISOS.AVISO.DETALLE.CIERRE.FECHA_INICIO' | translate }}:</div>
+        <div>{{ aviso.inicioAviso | date: 'dd/MM HH:mm' }}</div>
+      </div>
+
+      <div class="datos">
+        <div class="label">{{ 'AVISOS.AVISO.DETALLE.CIERRE.FECHA_CIERRE' | translate }}:</div>
         <div>{{ aviso.fechaFin | date: 'dd/MM HH:mm' }}</div>
       </div>
 
     </div>
 
+    <div class="separador"></div>
+
     <div class="rectangle">
-      <div class="label">Información aviso:</div>
+      <div class="label">{{ 'AVISOS.AVISO.DETALLE.INFO.TITLE' | translate }}:</div>
       <div>{{ aviso.descripcionAviso }}</div>
     </div>
 
     <div class="rectangle">
-      <div class="label">Información intervención:</div>
+      <div class="label">{{ 'AVISOS.AVISO.DETALLE.CIERRE.DATOS_INTER' | translate }}:</div>
       <div>{{ aviso.intervencion }}</div>
     </div>
 
@@ -139,13 +146,13 @@
 
     <div class="flex_space">
       <div class="datos">
-        <div class="label">Precio:</div>
+        <div class="label">{{ 'AVISOS.AVISO.DETALLE.CIERRE.PRECIO' | translate }}:</div>
         <div>{{ aviso.precio | currency:'EUR' }}</div>
       </div>
-      <div class="datos">
-        <div class="label">Firmado:</div>
+      <div>
+        <div class="label">{{ 'AVISOS.AVISO.DETALLE.CIERRE.FIRMADO' | translate }}:</div>
         <img *ngIf="firma" class="firmar" [src]="firma" alt="firma">
-        <div class="firmar" *ngIf="!firma">El cliente no deseo firmar</div>
+        <div class="firmar" *ngIf="!firma">{{ 'AVISOS.AVISO.DETALLE.CIERRE.NO_FIRMA' | translate }}</div>
       </div>
     </div>
   </div>

@@ -19,8 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   declarations: [PdfPage]
 })
-export class PdfPageModule {}
+export class PdfPageModule { }

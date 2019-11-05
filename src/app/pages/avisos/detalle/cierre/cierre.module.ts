@@ -25,10 +25,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     TranslateModule,
     SignaturePadModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
 
   ],
   declarations: [CierrePage],
-  providers: [DecimalPipe, TranslateService]
+  providers: [DecimalPipe]
 })
 export class CierrePageModule { }

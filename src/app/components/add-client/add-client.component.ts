@@ -77,11 +77,19 @@ export class AddClientComponent implements OnInit {
     if (this.clienteID === '') {
       this.fbase.addCliente(this.form.value).then(() => {
         this.presentToast(this.translate.instant('AVISOS.CLIENTES.ALTA_MSG'));
-      }).finally(() => { this.loading.dismiss(); });
+      }).finally(() => {
+        if (this.loading) {
+          this.loading.dismiss();
+        }
+      });
     } else {
       this.fbase.actualizarCliente(this.clienteID, this.form.value).then(() => {
         this.presentToast(this.translate.instant('AVISOS.CLIENTES.ACTU_MSG'));
-      }).finally(() => { this.loading.dismiss(); });
+      }).finally(() => {
+        if (this.loading) {
+          this.loading.dismiss();
+        }
+      });
     }
     this.cerrar.emit();
   }
@@ -101,8 +109,9 @@ export class AddClientComponent implements OnInit {
   }
 
   async presentLoading() {
-    this.loading = this.loadingController.create({
-      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG')
+    this.loading = await this.loadingController.create({
+      message: this.translate.instant('AVISOS.COMUN.LOADING_MSG'),
+      duration: 2000
     });
     await this.loading.present();
   }

@@ -14,13 +14,12 @@ export class PdfPage implements OnInit {
 
   constructor(
     private datos: DatosService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit() {
     this.pdf = this.datos.avisoElegido.pdf;
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.pdf}`);
-    console.log(this.url);
 
   }
 
