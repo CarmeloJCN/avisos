@@ -76,20 +76,21 @@ export class AddClientComponent implements OnInit {
     this.presentLoading();
     if (this.clienteID === '') {
       this.fbase.addCliente(this.form.value).then(() => {
-        this.presentToast(this.translate.instant('AVISOS.CLIENTES.ALTA_MSG'));
       }).finally(() => {
         if (this.loading) {
           this.loading.dismiss();
         }
       });
+      this.presentToast(this.translate.instant('AVISOS.CLIENTES.ALTA_MSG'));
+
     } else {
       this.fbase.actualizarCliente(this.clienteID, this.form.value).then(() => {
-        this.presentToast(this.translate.instant('AVISOS.CLIENTES.ACTU_MSG'));
       }).finally(() => {
         if (this.loading) {
           this.loading.dismiss();
         }
       });
+      this.presentToast(this.translate.instant('AVISOS.CLIENTES.ACTU_MSG'));
     }
     this.cerrar.emit();
   }

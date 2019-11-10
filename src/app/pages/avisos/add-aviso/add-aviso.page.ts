@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AVISOS_CONSTANTS } from './../../../app.constants';
 import { DatosService } from '../../../services/datos.service';
@@ -17,7 +18,7 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 export class AddAvisoPage implements OnInit {
 
   avisoForm: FormGroup;
-  avisoID: string;
+  avisoID = '';
   minDate: string;
   maxDate: string;
   loading: any;
@@ -31,7 +32,8 @@ export class AddAvisoPage implements OnInit {
     private datePipe: DatePipe,
     private toastController: ToastController,
     private translate: TranslateService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private router: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -49,9 +51,21 @@ export class AddAvisoPage implements OnInit {
       tecnicoID: ['', Validators.required],
       cerrado: false
     });
-    this.setTecnicoID();
-    this.setNumAviso();
-    this.avisoForm.get('fechaEntrada').setValue(new Date().toISOString());
+    this.router.params.subscribe(data => {
+      if (data.id === 'new') { return; }
+      this.avisoID = data.id;
+      this.fBase.leerAviso(data.id).subscribe(dato => {
+        this.avisoForm.patchValue(
+          dato.data()
+        );
+      });
+    });
+    if (this.avisoID === '') {
+      this.setTecnicoID();
+      this.setNumAviso();
+      this.avisoForm.get('fechaEntrada').setValue(new Date().toISOString());
+    }
+
   }
 
   private setNumAviso() {
@@ -69,8 +83,8 @@ export class AddAvisoPage implements OnInit {
   }
 
   private setTecnicoID() {
-    if (localStorage.getItem('usuarioID')) {
-      const id = localStorage.getItem('usuarioID');
+    if (localStorage.getItem('tecnicoID')) {
+      const id = JSON.parse(localStorage.getItem('tecnicoID'));
       this.avisoForm.get('tecnicoID').setValue(id);
     } else {
       if (this.datos.usuarioID) {
@@ -99,14 +113,24 @@ export class AddAvisoPage implements OnInit {
     this.avisoForm.markAllAsTouched();
     if (this.avisoForm.invalid) { return; }
     this.presentLoading();
-    this.fBase.addAviso(this.avisoForm.value).then(data => {
-      this.presentToast();
-      this.nav.back();
-    }).finally(() => {
-      if (this.loading) {
-        this.loading.dismiss();
-      }
-    });
+    if (this.avisoID === '') {
+      this.fBase.addAviso(this.avisoForm.value).then(() => {
+      }).finally(() => {
+        if (this.loading) {
+          this.loading.dismiss();
+        }
+      });
+    } else {
+      this.fBase.actualizarAviso(this.avisoID, this.avisoForm.value).then(() => {
+      }).finally(() => {
+        if (this.loading) {
+          this.loading.dismiss();
+        }
+      });
+    }
+    this.presentToast();
+    this.nav.back();
+
   }
 
   async presentToast() {

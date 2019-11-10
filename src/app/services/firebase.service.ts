@@ -35,6 +35,10 @@ export class FirebaseService {
     return this.firestore.collection('avisos', ref => ref.orderBy('numAviso', 'desc').limit(1)).get().pipe(take(1));
   }
 
+  leerAviso(avisoID: string) {
+    return this.firestore.doc('avisos/' + avisoID).get();
+  }
+
   leerCliente(clienteID: string) {
     return this.firestore.doc('clientes/' + clienteID).get();
   }

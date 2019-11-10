@@ -23,7 +23,7 @@ export class CierrePage implements OnInit {
   firma: any;
   firmar = false;
   logo: any;
-  pdf: any;
+  pdf: Blob;
   downloadURL: any;
   loading: any;
   get aviso() {
@@ -71,10 +71,6 @@ export class CierrePage implements OnInit {
     this.cierreForm.patchValue(this.datos.avisoElegido);
   }
 
-  format() {
-    this.cierreForm.get('precio').setValue(this.num.transform(this.precio, '0.2-2'));
-  }
-
   borrarFirma() {
     this.signaturePad.clear();
     this.firma = '';
@@ -84,19 +80,38 @@ export class CierrePage implements OnInit {
     this.firma = this.signaturePad.toDataURL('image/png', 0.5);
   }
 
-  cerrarAviso() {
+  aceptar() {
     if ((this.firma || this.firmar) && this.cierreForm.valid) {
       this.presentLoading();
-      this.cierreForm.patchValue({
-        fechaFin: this.aviso.fechaFin ? this.aviso.fechaFin : new Date().toISOString(),
-        cerrado: true
-      });
+
       setTimeout(() => {
-        this.captureScreen();
+        if (navigator.onLine) {
+          this.cerrarAviso(true);
+          this.captureScreen();
+        } else {
+          if (!this.firmar) {
+            localStorage.setItem(this.aviso.numAviso, JSON.stringify(this.firma));
+          }
+          this.cerrarAviso(false);
+          this.fBase.actualizarAviso(this.aviso.id, this.aviso).finally(() => {
+            if (this.loading) {
+              this.loading.dismiss();
+            }
+          });
+          this.nav.navigateBack('/avisos');
+        }
+
       }, 500);
 
     }
 
+  }
+
+  cerrarAviso(estado: boolean) {
+    this.cierreForm.patchValue({
+      fechaFin: this.aviso.fechaFin ? this.aviso.fechaFin : new Date().toISOString(),
+      cerrado: estado
+    });
   }
 
   cancelar() {
@@ -125,6 +140,9 @@ export class CierrePage implements OnInit {
           .subscribe(data => {
             this.cierreForm.get('pdf').setValue(data);
             this.fBase.actualizarAviso(this.aviso.id, this.aviso);
+            if (localStorage.getItem(this.aviso.numAviso)) {
+              localStorage.removeItem(this.aviso.numAviso);
+            }
             this.nav.navigateBack('/avisos');
             if (this.loading) {
               this.loading.dismiss();
@@ -141,6 +159,14 @@ export class CierrePage implements OnInit {
       duration: 8000
     });
     await this.loading.present();
+  }
+
+  ionViewDidEnter() {
+    if (localStorage.getItem(this.aviso.numAviso)) {
+      const imagen = JSON.parse(localStorage.getItem(this.aviso.numAviso));
+      this.signaturePad.fromDataURL(imagen);
+      this.firma = this.signaturePad.toDataURL('image/png', 0.5);
+    }
   }
 
 }

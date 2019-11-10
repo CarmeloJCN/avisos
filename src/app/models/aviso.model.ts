@@ -13,5 +13,5 @@ export class AvisoModel {
   precio: number;
   tecnicoID: string;
   cerrado: boolean;
-  pdf: any;
+  pdf?: any;
 }

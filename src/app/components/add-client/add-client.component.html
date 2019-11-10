@@ -6,7 +6,7 @@
     <div class="ion-padding">
       <ion-item>
         <ion-label>{{ 'AVISOS.CLIENTES.NOMBRE' | translate }}</ion-label>
-        <ion-input clearInput formControlName="nombre" inputmode="text" type="text" autocapitalize=words></ion-input>
+        <ion-input clearInput formControlName="nombre" inputmode="text" type="text"></ion-input>
       </ion-item>
       <div class="text-danger">
         <small *ngIf="form.controls['nombre'].touched && form.controls['nombre'].hasError('required')">

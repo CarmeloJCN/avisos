@@ -59,6 +59,11 @@ export class AvisosPage implements OnInit {
     }
   }
 
+  editAviso(id: string) {
+    this.nav.navigateForward(`/add-aviso/${id}`);
+    this.lista.closeSlidingItems();
+  }
+
   async presentAlert() {
     const alert = await this.alertController.create({
       animated: true,
