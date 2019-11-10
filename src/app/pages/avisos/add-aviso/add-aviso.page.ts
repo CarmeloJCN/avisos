@@ -69,13 +69,19 @@ export class AddAvisoPage implements OnInit {
   }
 
   private setTecnicoID() {
-    if (this.datos.usuarioID) {
-      this.avisoForm.get('tecnicoID').setValue(this.datos.usuarioID);
+    if (localStorage.getItem('usuarioID')) {
+      const id = localStorage.getItem('usuarioID');
+      this.avisoForm.get('tecnicoID').setValue(id);
     } else {
-      this.datos.getUsuarioID().pipe(take(1)).subscribe(data => {
-        this.avisoForm.get('tecnicoID').setValue(data[0].payload.doc.id);
-      });
+      if (this.datos.usuarioID) {
+        this.avisoForm.get('tecnicoID').setValue(this.datos.usuarioID);
+      } else {
+        this.datos.getUsuarioID().pipe(take(1)).subscribe(data => {
+          this.avisoForm.get('tecnicoID').setValue(data[0].payload.doc.id);
+        });
+      }
     }
+
   }
 
   private setMinMaxDate() {

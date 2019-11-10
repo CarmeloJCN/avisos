@@ -7,13 +7,21 @@
   </ion-toolbar>
   <ion-searchbar [placeholder]="'AVISOS.COMUN.BUSCAR' | translate" inputmode="text" type="text"
     (ionChange)="onSearchChange($event)" [debounce]="250"></ion-searchbar>
+  <ion-item>
+    <ion-label>Ver Avisos:</ion-label>
+    <ion-select interface="popover" [(ngModel)]="filtroEstado">
+      <ion-select-option selected=true value="activos">{{ 'AVISOS.FILTRO.ACTIVOS' | translate }}</ion-select-option>
+      <ion-select-option value="cerrados">{{ 'AVISOS.FILTRO.CERRADOS' | translate }}</ion-select-option>
+      <ion-select-option value="todos">{{ 'AVISOS.FILTRO.TODOS' | translate }}</ion-select-option>
+    </ion-select>
+  </ion-item>
 </ion-header>
 
 <ion-content>
   <ion-list>
 
     <ion-item-sliding #sliding
-      *ngFor="let item of datos.avisos | filter: filterValue:['cliente.nombre', 'cliente.direccion', 'numAviso']">
+      *ngFor="let item of datos.avisos | estado: filtroEstado | filter: filterValue:['cliente.nombre', 'cliente.direccion', 'numAviso']">
       <ion-item-options side="end" (click)="deleteAviso(item)">
         <ion-item-option color="danger">
           <ion-icon name="trash" slot="icon-only"></ion-icon>

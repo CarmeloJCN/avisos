@@ -6,12 +6,12 @@
       <ion-label>{{ 'AVISOS.AVISO.DETALLE.INFO' | translate }}</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="cierre" *ngIf="!datos.avisoElegido.cerrado">
+    <ion-tab-button tab="cierre" *ngIf="!datos.avisoElegido.pdf">
       <ion-icon name="done-all"></ion-icon>
       <ion-label>{{ 'AVISOS.AVISO.DETALLE.FIRMAR' | translate }}</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="pdf" *ngIf="datos.avisoElegido.cerrado">
+    <ion-tab-button tab="pdf" *ngIf="datos.avisoElegido.pdf">
       <ion-icon name="done-all"></ion-icon>
       <ion-label>{{ 'AVISOS.AVISO.DETALLE.PDF' | translate }}</ion-label>
     </ion-tab-button>

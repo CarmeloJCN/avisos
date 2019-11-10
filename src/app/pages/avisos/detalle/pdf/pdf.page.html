@@ -3,17 +3,21 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/" text=''></ion-back-button>
     </ion-buttons>
-    <ion-title>Documento generado</ion-title>
+    <ion-title>{{ 'AVISOS.PDF.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content scroll-y="true" scroll-x="true">
 
-  <object [data]="url" type="application/pdf" width="100%" height="100%">
+  <object [data]="url" type="application/pdf" width="100%" height="100%" *ngIf="online; else noOnline">
     <iframe [src]="url" width="100%" height="100%" style="border: none;">
-      <p>Your browser does not support PDFs.
-        <a [href]="url">Download the PDF</a>.</p>
+      <p>{{ 'AVISOS.PDF.P' | translate }}
+        <a [href]="url">{{ 'AVISOS.PDF.A' | translate }}</a>.</p>
     </iframe>
   </object>
 
 
 </ion-content>
+
+<ng-template #noOnline>
+  <div>{{ 'AVISOS.PDF.NO_ONLINE' | translate }}</div>
+</ng-template>

@@ -88,7 +88,7 @@ export class CierrePage implements OnInit {
     if ((this.firma || this.firmar) && this.cierreForm.valid) {
       this.presentLoading();
       this.cierreForm.patchValue({
-        fechaFin: new Date().toISOString(),
+        fechaFin: this.aviso.fechaFin ? this.aviso.fechaFin : new Date().toISOString(),
         cerrado: true
       });
       setTimeout(() => {
@@ -138,7 +138,7 @@ export class CierrePage implements OnInit {
   async presentLoading() {
     this.loading = await this.loadingController.create({
       message: this.translate.instant('AVISOS.COMUN.LOADING_MSG'),
-      duration: 2000
+      duration: 8000
     });
     await this.loading.present();
   }

@@ -63,5 +63,11 @@
   "AVISOS.ERRORES.GENERIC": "Some problem has occurred.",
   "AVISOS.ERRORES.TOO_MANY_REQUEST": "Too many attempts, try again later.",
   "AVISOS.ERRORES.NO_DESCRIPTION": "You must fill in what needs to be done.",
-  "AVISOS.ERRORES.NO_CLIENTE": "It is mandatory to select a customer."
+  "AVISOS.ERRORES.NO_CLIENTE": "It is mandatory to select a customer.",
+  "AVISOS.PDF.TITLE": "Documento generado",
+  "AVISOS.PDF.P": "Your browser does not support PDFs.",
+  "AVISOS.PDF.A": "Download the PDF",
+  "AVISOS.FILTRO.TODOS": "All",
+  "AVISOS.FILTRO.CERRADOS": "Closed",
+  "AVISOS.FILTRO.ACTIVOS": "Activated"
 }

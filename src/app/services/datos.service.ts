@@ -67,6 +67,7 @@ export class DatosService {
     const user = JSON.parse(localStorage.getItem('user'));
     return this.fb.leerTecnico(user.uid).pipe(tap(datos => {
       this.usuarioID = datos[0].payload.doc.id;
+      localStorage.setItem('tecnicoID', JSON.stringify(this.usuarioID));
     }));
   }
 }

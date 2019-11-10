@@ -14,6 +14,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class AvisosPage implements OnInit {
 
   filterValue: string;
+  filtroEstado: string;
   avisoID: string;
   aviso: AvisoModel;
   @ViewChild(IonList, { static: true }) lista: IonList;
@@ -28,7 +29,7 @@ export class AvisosPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.filtroEstado = 'activos';
   }
 
   addAviso() {

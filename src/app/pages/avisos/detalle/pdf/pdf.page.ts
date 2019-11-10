@@ -11,6 +11,7 @@ export class PdfPage implements OnInit {
 
   url: any;
   pdf: string;
+  online: boolean;
 
   constructor(
     private datos: DatosService,
@@ -18,9 +19,11 @@ export class PdfPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pdf = this.datos.avisoElegido.pdf;
-    this.url = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.pdf}`);
-
+    this.online = navigator.onLine;
+    if (this.online) {
+      this.pdf = this.datos.avisoElegido.pdf;
+      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(`${this.pdf}`);
+    }
   }
 
 }
