@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { FirebaseService } from './../../../../services/firebase.service';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { DatosService } from './../../../../services/datos.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -47,6 +47,7 @@ export class CierrePage implements OnInit {
     private storage: AngularFireStorage,
     private fBase: FirebaseService,
     public loadingController: LoadingController,
+    private alertController: AlertController,
     private translate: TranslateService
   ) { }
 
@@ -103,6 +104,8 @@ export class CierrePage implements OnInit {
 
       }, 500);
 
+    } else {
+      this.presentAlert();
     }
 
   }
@@ -159,6 +162,23 @@ export class CierrePage implements OnInit {
       duration: 8000
     });
     await this.loading.present();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      animated: true,
+      backdropDismiss: false,
+      message: this.translate.instant('AVISOS.ERRORES.NO_COMPLETO'),
+      buttons: [
+        {
+          text: this.translate.instant('AVISOS.COMUN.ACEPTAR'),
+          handler: data => {
+
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   ionViewDidEnter() {
