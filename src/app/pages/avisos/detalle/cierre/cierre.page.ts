@@ -111,10 +111,9 @@ export class CierrePage implements OnInit {
   }
 
   cerrarAviso(estado: boolean) {
-    this.cierreForm.patchValue({
-      fechaFin: this.aviso.fechaFin ? this.aviso.fechaFin : new Date().toISOString(),
-      cerrado: estado
-    });
+    this.cierreForm.get('cerrado').setValue(estado);
+    const date = this.aviso.fechaFin ? this.aviso.fechaFin : new Date().toISOString();
+    this.cierreForm.get('fechaFin').setValue(date);
   }
 
   cancelar() {
@@ -122,15 +121,18 @@ export class CierrePage implements OnInit {
   }
 
   public captureScreen() {
-    const data = document.getElementById('pdf');
-    const options = { background: 'white', height: 842, width: 600 };
-    domtoimage.toPng(data, options).then((dataUrl) => {
-      const doc = new jsPDF('p', 'mm', 'a4');
-      const imgHeight = 842 * 208 / 600;
-      doc.addImage(dataUrl, 'PNG', 0, 0, 208, imgHeight);
-      this.pdf = doc.output('blob');
-      this.guardarPdf();
-    });
+    setTimeout(() => {
+      const data = document.getElementById('pdf');
+      const options = { background: 'white', height: 842, width: 600 };
+      domtoimage.toPng(data, options).then((dataUrl) => {
+        const doc = new jsPDF('p', 'mm', 'a4');
+        const imgHeight = 842 * 208 / 600;
+        doc.addImage(dataUrl, 'PNG', 0, 0, 208, imgHeight);
+        this.pdf = doc.output('blob');
+        this.guardarPdf();
+      });
+    }, 150);
+
   }
 
   private guardarPdf() {
