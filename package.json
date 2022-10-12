@@ -36,7 +36,7 @@
     "dom-to-image": "^2.6.0",
     "firebase": "^7.2.1",
     "ionic-selectable": "^4.4.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.5.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
