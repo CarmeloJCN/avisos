@@ -1,0 +1,314 @@
+.searchWrapper {
+  position: relative;
+  margin: 12px 0 16px;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--medium-shade);
+  pointer-events: none;
+}
+
+.searchBar {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  border: 1.5px solid var(--light-shade);
+  border-radius: var(--border-radius-md);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dark);
+  outline: none;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.searchBar:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.12);
+}
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 4px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark-tint);
+}
+
+.filterLabel {
+  color: var(--medium-shade);
+}
+
+.filterRow select {
+  padding: 6px 12px;
+  border: 1.5px solid var(--light-shade);
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+  outline: none;
+  background: white;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.filterRow select:focus {
+  border-color: var(--primary);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 24px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border: 1.5px solid var(--light-shade);
+  border-radius: var(--border-radius-md);
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  gap: 16px;
+}
+
+.item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.3);
+}
+
+.itemContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.itemName {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--dark);
+  letter-spacing: -0.3px;
+}
+
+.itemAddress {
+  font-size: 13.5px;
+  color: var(--medium-shade);
+}
+
+.itemBadgeRow {
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+}
+
+.badgeOpen {
+  background: hsla(var(--success-h), var(--success-s), var(--success-l), 0.12);
+  color: var(--success);
+}
+
+.badgeClosed {
+  background: hsla(var(--medium-h), var(--medium-s), var(--medium-l), 0.12);
+  color: var(--medium-shade);
+}
+
+.itemMeta {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.itemAvisoNum {
+  font-weight: 600;
+  color: var(--primary);
+  background: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.itemDate {
+  color: var(--medium-shade);
+}
+
+.itemActions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionBtn {
+  background: var(--light);
+  border: 1px solid var(--light-shade);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.actionBtn:hover {
+  transform: scale(1.08);
+}
+
+.actionDanger {
+  color: var(--danger);
+  background: hsla(var(--danger-h), var(--danger-s), var(--danger-l), 0.05);
+}
+
+.actionDanger:hover {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+}
+
+.actionPrimary {
+  color: var(--primary);
+  background: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.05);
+}
+
+.actionPrimary:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.fab {
+  position: fixed;
+  bottom: 96px; /* Position above bottom nav bar */
+  right: 20px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--primary-contrast);
+  border: none;
+  box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.35);
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+}
+
+.fab:hover {
+  background: var(--primary-shade);
+  transform: scale(1.08) rotate(90deg);
+  box-shadow: 0 8px 24px rgba(var(--primary-rgb), 0.45);
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+.empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--medium);
+  font-size: 15px;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+.modal {
+  background: white;
+  border-radius: var(--border-radius-md);
+  padding: 28px 24px;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--light-shade);
+  animation: scaleIn var(--transition-fast) forwards;
+}
+
+.modal p {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark-tint);
+  margin-bottom: 20px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.modalBtn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modalBtnPrimary {
+  background: var(--light-shade);
+  color: var(--dark-tint);
+}
+
+.modalBtnPrimary:hover {
+  background: var(--medium-tint);
+}
+
+.modalBtnDanger {
+  background: var(--danger);
+  color: white;
+  box-shadow: 0 4px 12px rgba(var(--danger-rgb), 0.15);
+}
+
+.modalBtnDanger:hover {
+  background: var(--danger-shade);
+  box-shadow: 0 6px 16px rgba(var(--danger-rgb), 0.25);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

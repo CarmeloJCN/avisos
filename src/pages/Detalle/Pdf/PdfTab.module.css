@@ -1,0 +1,27 @@
+.content {
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  padding: 8px 4px 24px;
+}
+
+.object {
+  flex: 1;
+  border: 1.5px solid var(--light-shade);
+  border-radius: var(--border-radius-md);
+  width: 100%;
+  box-shadow: var(--shadow-sm);
+  background: white;
+}
+
+.offline {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--medium-shade);
+  font-weight: 500;
+  font-size: 15px;
+  background: white;
+  border: 1.5px solid var(--light-shade);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}

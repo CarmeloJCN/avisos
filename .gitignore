@@ -31,3 +31,9 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
